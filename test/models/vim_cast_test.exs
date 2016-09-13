@@ -17,4 +17,15 @@ defmodule Caster.VimCastTest do
     assert {:name, {"can't be blank", []}} in changeset.errors
     assert {:url, {"can't be blank", []}} in changeset.errors
   end
+
+  test "changeset sets the source correctly" do
+    something = insert_vimcast(@valid_attrs)
+  end
+
+  defp insert_vimcast(attrs) do
+    vimcast = %Caster.VimCast{}
+                |> Caster.VimCast.changeset(attrs)
+                |> Repo.insert!()
+    assert vimcast.source == "vimcast"
+  end
 end
