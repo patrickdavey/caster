@@ -10,4 +10,11 @@ defmodule Caster.VimCastTest do
     changeset = VimCast.changeset(%VimCast{}, @valid_attrs)
     assert changeset.valid?
   end
+
+  test "changeset with invalid attributes" do
+    changeset = VimCast.changeset(%VimCast{}, %{})
+    refute changeset.valid?
+    assert {:name, {"can't be blank", []}} in changeset.errors
+    assert {:url, {"can't be blank", []}} in changeset.errors
+  end
 end
