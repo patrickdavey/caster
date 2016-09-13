@@ -1,4 +1,12 @@
 defmodule Caster.Cast do
+  @moduledoc """
+  This is the base cast model. It should not be instantiated, instead
+  each Cast type will use the same schema but define their own
+  changesets etc.
+
+  This may indeed be a horrible way to to things, but it's my first
+  Elixir project, Pull Requests and compelte reworks are welcome ;)
+  """
   use Caster.Web, :model
 
   schema "casts" do
@@ -12,14 +20,5 @@ defmodule Caster.Cast do
     field :note, :string
 
     timestamps()
-  end
-
-  @doc """
-  Builds a changeset based on the `struct` and `params`.
-  """
-  def changeset(struct, params \\ %{}) do
-    struct
-    |> cast(params, [:name, :url, :file_location, :episode, :viewed, :interesting, :source, :note])
-    |> validate_required([:name, :url, :file_location, :episode, :viewed, :interesting, :source, :note])
   end
 end
