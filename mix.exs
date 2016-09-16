@@ -19,7 +19,7 @@ defmodule Caster.Mixfile do
   def application do
     [mod: {Caster, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :httpoison, :postgrex]]
   end
 
   # Specifies which paths to compile per environment.
@@ -37,6 +37,8 @@ defmodule Caster.Mixfile do
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
+     {:httpoison, "~> 0.9.0"},
+     {:feeder_ex, "~> 0.0.4"},
      {:cowboy, "~> 1.0"}]
   end
 
