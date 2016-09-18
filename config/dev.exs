@@ -39,3 +39,5 @@ config :caster, Caster.Repo,
   database: "caster_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :caster, :vim_api, Caster.Feed.VimCastFeed.ProdClient

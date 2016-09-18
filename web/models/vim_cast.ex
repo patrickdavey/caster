@@ -7,13 +7,13 @@ defmodule Caster.VimCast do
   """
   use Caster.Web, :model
 
-  @allowed_params [:name, :url, :file_location, :episode,
+  @allowed_params [:title, :url, :file_location, :episode,
                    :viewed, :interesting, :source, :note]
-  @required_params [:name, :url]
+  @required_params [:title, :url]
   @source :vimcast
 
   schema "casts" do
-    field :name, :string
+    field :title, :string
     field :url, :string
     field :file_location, :string
     field :episode, :integer
@@ -34,6 +34,6 @@ defmodule Caster.VimCast do
                        }, params)
     struct
     |> cast(changes, @allowed_params)
-    |> validate_required([:name, :url])
+    |> validate_required([:title, :url])
   end
 end

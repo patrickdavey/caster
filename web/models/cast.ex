@@ -10,7 +10,7 @@ defmodule Caster.Cast do
   use Caster.Web, :model
 
   schema "casts" do
-    field :name, :string
+    field :title, :string
     field :url, :string
     field :file_location, :string
     field :episode, :integer
