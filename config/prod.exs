@@ -19,5 +19,3 @@ config :caster, Caster.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 import_config "prod.secret.exs"
-
-config :caster, :vim_api, Caster.Feed.VimCastFeed.ProdClient

@@ -4,7 +4,7 @@ defmodule Caster.Feed.VimCastFeedTest do
   alias Caster.Feed.VimCastFeed
 
   test "creates a VimCast entry correctly" do
-    VimCastFeed.fetch!
+    VimCastFeed.fetch!(Caster.Feed.VimCastFeed.TestClient)
     video_count = Repo.one(from v in Caster.VimCast, select: count(v.id))
     assert video_count == 1
   end

@@ -1,19 +1,18 @@
 defmodule Caster.Feed.VimCastFeed do
   alias Caster.Repo
-  @client_fetcher Application.get_env(:caster, :vim_api)
 
   @moduledoc """
   This feed parses the RSS feed for vimcasts and then
   creates records in the database
   """
-  def fetch! do
-    {:ok, feed, _} = FeederEx.parse(@client_fetcher.fetch!)
-    feed.entries
-       |> Enum.filter(&(Map.get(&1, :enclosure)))
-       |> Enum.each(&insert_record/1)
+  def fetch!(client \\ Caster.Feed.VimCastFeed.ProdClient) do
+    FeederEx.parse!(client.fetch!)
+     |> Map.get(:entries)
+     |> Enum.filter(&(Map.get(&1, :enclosure)))
+     |> Enum.each(&insert_record_unless_existing/1)
   end
 
-  defp insert_record(%FeederEx.Entry{title: title, enclosure: %{ url: url }, updated: published_date } = _record) do
+  defp insert_record_unless_existing(%FeederEx.Entry{title: title, enclosure: %{ url: url }, updated: published_date } = _record) do
     case Repo.get_by(Caster.VimCast, url: url) do
       %{id: _id} -> nil
       nil -> insert(title, url)
@@ -27,6 +26,7 @@ defmodule Caster.Feed.VimCastFeed do
   end
 
   defmodule ProdClient do
+    @behaviour Caster.FeedClient
     @feed_url "http://vimcasts.org/feeds/ogg.rss"
 
     def fetch! do
@@ -37,6 +37,7 @@ defmodule Caster.Feed.VimCastFeed do
   end
 
   defmodule TestClient do
+    @behaviour Caster.FeedClient
     def fetch! do
       ~s|<?xml version="1.0" encoding="UTF-8"?>
       <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">

@@ -15,5 +15,3 @@ config :caster, Caster.Repo,
   database: "caster_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
-
-config :caster, :vim_api, Caster.Feed.VimCastFeed.TestClient

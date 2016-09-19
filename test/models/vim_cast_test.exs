@@ -25,7 +25,7 @@ defmodule Caster.VimCastTest do
 
   defp insert_vimcast(attrs) do
     %Caster.VimCast{}
-                |> Caster.VimCast.changeset(attrs)
-                |> Repo.insert!()
+      |> Caster.VimCast.changeset(attrs)
+      |> Repo.insert!()
   end
 end
