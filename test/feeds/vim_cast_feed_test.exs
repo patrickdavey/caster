@@ -8,4 +8,11 @@ defmodule Caster.Feed.VimCastFeedTest do
     video_count = Repo.one(from v in Caster.VimCast, select: count(v.id))
     assert video_count == 1
   end
+
+  test "only inserts the entry once if fetched multiple times" do
+    VimCastFeed.fetch!(Caster.Feed.VimCastFeed.TestClient)
+    VimCastFeed.fetch!(Caster.Feed.VimCastFeed.TestClient)
+    video_count = Repo.one(from v in Caster.VimCast, select: count(v.id))
+    assert video_count == 1
+  end
 end
