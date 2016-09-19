@@ -18,7 +18,7 @@ defmodule Caster.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Caster, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
+     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext, :timex_ecto,
                     :phoenix_ecto, :httpoison, :postgrex]]
   end
 
@@ -36,6 +36,8 @@ defmodule Caster.Mixfile do
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
+     {:timex, "~> 3.0"},
+     {:timex_ecto, "~> 3.0"},
      {:gettext, "~> 0.11"},
      {:httpoison, "~> 0.9.0"},
      {:feeder_ex, "~> 0.0.4"},

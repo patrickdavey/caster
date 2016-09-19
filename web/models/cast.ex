@@ -18,6 +18,7 @@ defmodule Caster.Cast do
     field :interesting, :boolean, default: false
     field :source, :string
     field :note, :string
+    field :published_at, Timex.Ecto.DateTime
 
     timestamps()
   end

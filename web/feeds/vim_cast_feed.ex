@@ -12,16 +12,18 @@ defmodule Caster.Feed.VimCastFeed do
      |> Enum.each(&insert_record_unless_existing/1)
   end
 
-  defp insert_record_unless_existing(%FeederEx.Entry{title: title, enclosure: %{ url: url }, updated: published_date } = _record) do
+  defp insert_record_unless_existing(%FeederEx.Entry{title: title, enclosure: %{ url: url }, updated: published_at } = _record) do
+    published_at = Timex.parse!(published_at, "{RFC1123}")
+
     case Repo.get_by(Caster.VimCast, url: url) do
       %{id: _id} -> nil
-      nil -> insert(title, url)
+      nil -> insert(title, url, published_at)
     end
   end
 
-  defp insert(title, url) do
+  defp insert(title, url, published_at) do
     %Caster.VimCast{}
-      |> Caster.VimCast.changeset(title: title, url: url)
+      |> Caster.VimCast.changeset(title: title, url: url, published_at: published_at)
       |> Repo.insert!()
   end
 

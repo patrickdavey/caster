@@ -7,9 +7,9 @@ defmodule Caster.VimCast do
   """
   use Caster.Web, :model
 
-  @allowed_params [:title, :url, :file_location, :episode,
+  @allowed_params [:title, :url, :file_location, :episode, :published_at,
                    :viewed, :interesting, :source, :note]
-  @required_params [:title, :url]
+  @required_params [:title, :url, :published_at]
   @source :vimcast
 
   schema "casts" do
@@ -21,6 +21,7 @@ defmodule Caster.VimCast do
     field :interesting, :boolean, default: false
     field :source, :string
     field :note, :string
+    field :published_at, Timex.Ecto.DateTime
 
     timestamps()
   end
@@ -34,6 +35,6 @@ defmodule Caster.VimCast do
                        }, params)
     struct
     |> cast(changes, @allowed_params)
-    |> validate_required([:title, :url])
+    |> validate_required(@required_params)
   end
 end

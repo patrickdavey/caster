@@ -3,11 +3,10 @@ defmodule Caster.VimCastTest do
 
   alias Caster.VimCast
 
-  @valid_attrs %{title: "some content", url: "some content"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
-    changeset = VimCast.changeset(%VimCast{}, @valid_attrs)
+    changeset = VimCast.changeset(%VimCast{}, valid_attributes)
     assert changeset.valid?
   end
 
@@ -19,7 +18,7 @@ defmodule Caster.VimCastTest do
   end
 
   test "changeset sets the source correctly" do
-    vimcast = insert_vimcast(@valid_attrs)
+    vimcast = insert_vimcast(valid_attributes)
     assert vimcast.source == "vimcast"
   end
 
@@ -27,5 +26,13 @@ defmodule Caster.VimCastTest do
     %Caster.VimCast{}
       |> Caster.VimCast.changeset(attrs)
       |> Repo.insert!()
+  end
+
+  defp valid_attributes do
+    %{
+      published_at: Timex.now,
+      title: "some content",
+      url: "some url"
+    }
   end
 end
