@@ -19,7 +19,7 @@ defmodule Caster.VimCast do
     field :episode, :integer
     field :viewed, :boolean, default: false
     field :interesting, :boolean, default: false
-    field :source, :string
+    field :source, :string, default: Atom.to_string(@source)
     field :note, :string
     field :published_at, Timex.Ecto.DateTime
 
@@ -30,11 +30,13 @@ defmodule Caster.VimCast do
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do
-    changes = Dict.merge(%{
-                         source: to_string(@source),
-                       }, params)
+    changes = Dict.merge(%{}, params)
     struct
     |> cast(changes, @allowed_params)
     |> validate_required(@required_params)
+  end
+
+  def sorted(query) do
+    from v in query, order_by: [desc: v.published_at]
   end
 end
