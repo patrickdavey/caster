@@ -6,11 +6,16 @@ defmodule Caster.VimCast do
 
   """
   use Caster.Web, :model
+  use Caster.Cast.Mixin
 
   @allowed_params [:title, :url, :file_location, :episode, :published_at,
                    :viewed, :interesting, :source, :note]
   @required_params [:title, :url, :published_at]
   @source :vimcast
+
+  defp source do
+    Atom.to_string(@source)
+  end
 
   schema "casts" do
     field :title, :string
@@ -34,9 +39,5 @@ defmodule Caster.VimCast do
     struct
     |> cast(changes, @allowed_params)
     |> validate_required(@required_params)
-  end
-
-  def sorted(query) do
-    from v in query, order_by: [desc: v.published_at]
   end
 end

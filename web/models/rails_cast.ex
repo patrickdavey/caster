@@ -6,11 +6,16 @@ defmodule Caster.RailsCast do
 
   """
   use Caster.Web, :model
+  use Caster.Cast.Mixin
 
   @allowed_params [:title, :url, :file_location, :episode, :published_at,
                    :viewed, :interesting, :source, :note]
   @required_params [:title, :url, :episode, :published_at]
   @source :railscast
+
+  defp source do
+    Atom.to_string(@source)
+  end
 
   schema "casts" do
     field :title, :string
@@ -36,7 +41,10 @@ defmodule Caster.RailsCast do
     |> validate_required(@required_params)
   end
 
-  def sorted(query) do
-    from v in query, order_by: [desc: v.episode]
+  def sorted do
+    from v in Caster.RailsCast,
+      where: v.source == ^source,
+      order_by: [desc: v.episode]
   end
+
 end

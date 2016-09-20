@@ -28,9 +28,7 @@ defmodule Caster.RailsCastTest do
     Repo.insert!(%RailsCast{title: "lucky", url: "a", episode: 2, published_at: Timex.shift(Timex.now, days: -5)})
     Repo.insert!(%RailsCast{title: "grumpy", url: "a", episode: 3, published_at: Timex.shift(Timex.now, days: -5)})
 
-    query = RailsCast |> RailsCast.sorted
-    query = from c in query, select: c.title
-    assert Repo.all(query) == ~w(tyrion grumpy lucky happy)
+    assert Repo.all(RailsCast.sorted |> RailsCast.titles) == ~w(tyrion grumpy lucky happy)
   end
 
   defp insert_railscast(attrs) do
