@@ -3,11 +3,17 @@ defmodule Caster.CustomCastDownloaderTest do
   @moduletag :production_api_test
 
   alias Caster.CustomCastDownloader
+  alias Caster.CustomCast
 
   test "can fetch a title correctly from youtube" do
-    { title, 0 } = CustomCastDownloader.fetch("https://www.youtube.com/watch?v=muFHHa370Ks")
+    { :ok, title } = CustomCastDownloader.fetch(%CustomCast{url: "https://www.youtube.com/watch?v=muFHHa370Ks"})
 
-    title = String.trim_trailing(title)
     assert title == "falklands south georgia antarctica timelapse"
+  end
+
+  test "has the correct filename path" do
+    { :ok, filename } = CustomCastDownloader.get_filename(%CustomCast{url: "https://www.youtube.com/watch?v=muFHHa370Ks"})
+
+    assert filename == ""
   end
 end
