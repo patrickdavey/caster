@@ -7,7 +7,8 @@ use Mix.Config
 
 # General application configuration
 config :caster,
-  ecto_repos: [Caster.Repo]
+  ecto_repos: [Caster.Repo],
+  root_downloads_directory: 'downloads'
 
 # Configures the endpoint
 config :caster, Caster.Endpoint,
