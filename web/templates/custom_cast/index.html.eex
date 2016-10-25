@@ -1,0 +1,25 @@
+<h2>Listing custom casts</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for custom_cast <- @custom_casts do %>
+    <tr>
+      <td><%= custom_cast.title %></td>
+      <td><%= Caster.Cast.downloaded?(custom_cast) %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: custom_cast_path(@conn, :show, custom_cast), class: "btn btn-default btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New custom cast", to: custom_cast_path(@conn, :new) %>

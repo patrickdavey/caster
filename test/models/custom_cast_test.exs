@@ -3,6 +3,7 @@ defmodule Caster.CustomCastTest do
 
   alias Caster.CustomCast
   alias Caster.RailsCast
+  alias Caster.Cast
 
   @invalid_attrs %{}
 
@@ -21,6 +22,11 @@ defmodule Caster.CustomCastTest do
   test "changeset sets the source correctly" do
     customcast = insert_customcast(valid_attributes)
     assert customcast.source == "customcast"
+  end
+
+  test "if there is a filename it is downloaded" do
+    cast = Repo.insert!(%CustomCast{title: "lucky", url: "a", file_location: "blah"})
+    assert Cast.downloaded?(cast)
   end
 
   test "sorted/1 sorts by inserted_at" do

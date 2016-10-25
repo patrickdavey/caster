@@ -1,0 +1,6 @@
+<h2>New custom cast</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: custom_cast_path(@conn, :create) %>
+
+<%= link "Back", to: custom_cast_path(@conn, :index) %>

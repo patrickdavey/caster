@@ -22,4 +22,8 @@ defmodule Caster.Cast do
 
     timestamps()
   end
+
+  def downloaded?(cast) do
+    cast.file_location != nil
+  end
 end

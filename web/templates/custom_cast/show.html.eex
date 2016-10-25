@@ -1,0 +1,13 @@
+<h2>Show custom cast</h2>
+
+<ul>
+
+  <li>
+    <strong>Url:</strong>
+    <%= @custom_cast.url %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: custom_cast_path(@conn, :edit, @custom_cast) %>
+<%= link "Back", to: custom_cast_path(@conn, :index) %>
