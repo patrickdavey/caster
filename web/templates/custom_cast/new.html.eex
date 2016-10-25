@@ -3,4 +3,4 @@
 <%= render "form.html", changeset: @changeset,
                         action: custom_cast_path(@conn, :create) %>
 
-<%= link "Back", to: custom_cast_path(@conn, :index) %>
+<%= link "Back", to: cast_path(@conn, :index) %>

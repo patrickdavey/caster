@@ -1,3 +1,3 @@
-defmodule Caster.PageView do
+defmodule Caster.CastView do
   use Caster.Web, :view
 end

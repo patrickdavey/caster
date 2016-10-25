@@ -16,8 +16,9 @@ defmodule Caster.Router do
   scope "/", Caster do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
-    resources "/custom_casts", CustomCastController, only: [:index, :new, :create, :show]
+    get "/", CastController, :index
+    resources "/casts", CastController, only: [:index, :show]
+    resources "/custom_casts", CustomCastController, only: [:new, :create]
   end
 
   # Other scopes may use custom stacks.

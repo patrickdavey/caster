@@ -1,0 +1,10 @@
+<h2>Show custom cast</h2>
+
+<ul>
+
+  <li>
+    <strong>Url:</strong>
+    <%= @custom_cast.url %>
+  </li>
+
+</ul>
