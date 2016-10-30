@@ -1,4 +1,7 @@
 defmodule Caster do
+  @moduledoc """
+    Main application module
+  """
   use Application
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html

@@ -17,7 +17,11 @@ defmodule Caster.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", CastController, :index
-    resources "/casts", CastController, only: [:index, :show]
+
+    resources "/casts", CastController, only: [:index, :show] do
+      post "/download", CastController, :download, as: :download
+    end
+
     resources "/custom_casts", CustomCastController, only: [:new, :create]
   end
 

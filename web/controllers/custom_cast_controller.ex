@@ -9,9 +9,9 @@ defmodule Caster.CustomCastController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"custom_cast" => %{ "url" => url }}) do
-    { :ok, title } = CustomCastDownloader.get_title(%CustomCast{url: url})
-    changeset = CustomCast.changeset(%CustomCast{}, %{ title: title, url: url })
+  def create(conn, %{"custom_cast" => %{"url" => url}}) do
+    {:ok, title} = CustomCastDownloader.get_title(%CustomCast{url: url})
+    changeset = CustomCast.changeset(%CustomCast{}, %{title: title, url: url})
 
     case Repo.insert(changeset) do
       {:ok, _custom_cast} ->

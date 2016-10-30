@@ -6,13 +6,14 @@ defmodule Caster.Feed.RailsCastFeed do
   creates records in the database
   """
   def fetch!(client \\ Caster.Feed.RailsCastFeed.ProdClient) do
-    FeederEx.parse!(client.fetch!)
-     |> Map.get(:entries)
-     |> Enum.filter(&(Map.get(&1, :enclosure)))
-     |> Enum.each(&insert_record_unless_existing/1)
+    client.fetch!
+    |> FeederEx.parse!
+    |> Map.get(:entries)
+    |> Enum.filter(&(Map.get(&1, :enclosure)))
+    |> Enum.each(&insert_record_unless_existing/1)
   end
 
-  defp insert_record_unless_existing(%FeederEx.Entry{title: title, enclosure: %{ url: url }, updated: published_at } = _record) do
+  defp insert_record_unless_existing(%FeederEx.Entry{title: title, enclosure: %{url: url}, updated: published_at} = _record) do
     episode = Regex.named_captures(~r/#(?<episode>\d+)/, title)["episode"]
     published_at = Timex.parse!(published_at, "{RFC1123}")
 
@@ -29,6 +30,9 @@ defmodule Caster.Feed.RailsCastFeed do
   end
 
   defmodule ProdClient do
+    @moduledoc """
+      Production client for fetching railscast entries
+    """
     @behaviour Caster.FeedClient
     @feed_url "http://feeds.feedburner.com/railscasts"
 
@@ -40,6 +44,9 @@ defmodule Caster.Feed.RailsCastFeed do
   end
 
   defmodule TestClient do
+    @moduledoc """
+      Mock to save us hitting railscast feed in tests
+    """
     @behaviour Caster.FeedClient
     def fetch! do
       ~s|<?xml version="1.0" encoding="UTF-8"?>
