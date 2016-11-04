@@ -15,6 +15,9 @@ erl_crash.dump
 # this depending on your deployment strategy.
 /priv/static/
 
+#ignore our downloaded movies
+/priv/downloads/
+
 # The config/prod.secret.exs file by default contains sensitive
 # data and you should not commit it into version control.
 #
