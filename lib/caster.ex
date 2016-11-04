@@ -15,6 +15,7 @@ defmodule Caster do
       supervisor(Caster.Repo, []),
       # Start the endpoint when the application starts
       supervisor(Caster.Endpoint, []),
+      supervisor(Task.Supervisor, [[name: Caster.TaskSupervisor]])
       # Start your own worker by calling: Caster.Worker.start_link(arg1, arg2, arg3)
       # worker(Caster.Worker, [arg1, arg2, arg3]),
     ]
