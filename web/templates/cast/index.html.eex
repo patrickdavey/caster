@@ -15,8 +15,7 @@
       <td><%= Caster.Cast.downloaded?(cast) %></td>
 
       <td class="text-right">
-        <%= link "Show", to: cast_path(@conn, :show, cast), class: "btn btn-default btn-xs" %>
-        <%= button "Download", to: cast_download_path(@conn, :create, cast), class: "btn btn-default btn-xs" %>
+        <%= cast_link(@conn, cast) %>
       </td>
     </tr>
 <% end %>
