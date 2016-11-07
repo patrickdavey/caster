@@ -18,7 +18,18 @@ defmodule Caster.CastController do
 
   def show(conn, %{"id" => id}) do
     cast = Repo.get!(Cast, id)
-    render(conn, "show.html", cast: cast)
+
+    viewer =
+      cond do
+        conn.assigns[:viewer] -> conn.assigns[:viewer]
+        :otherwise -> Caster.CastViewer.ProdClient
+      end
+
+    viewer.view!(cast)
+
+    conn
+    |> put_flash(:info, "Lauching Cast in VLC...")
+    |> redirect(to: cast_path(conn, :index))
   end
 
 end

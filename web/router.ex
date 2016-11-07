@@ -25,8 +25,4 @@ defmodule Caster.Router do
     resources "/custom_casts", CustomCastController, only: [:new, :create]
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Caster do
-  #   pipe_through :api
-  # end
 end

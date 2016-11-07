@@ -1,13 +1,12 @@
 defmodule Caster.Cast do
   @moduledoc """
-  This is the base cast model. It should not be instantiated, instead
-  each Cast type will use the same schema but define their own
-  changesets etc.
-
-  This may indeed be a horrible way to to things, but it's my first
-  Elixir project, Pull Requests and compelte reworks are welcome ;)
+  This is the base cast model. It should never actually be
+  created, but we do allow updates through it.
   """
   use Caster.Web, :model
+
+  @allowed_params [:viewed, :interesting, :note]
+  @required_params [:title, :source]
 
   schema "casts" do
     field :title, :string
@@ -26,4 +25,12 @@ defmodule Caster.Cast do
   def downloaded?(cast) do
     cast.file_location != nil
   end
+
+  def changeset(struct, params \\ %{}) do
+    changes = Dict.merge(%{}, params)
+    struct
+    |> cast(changes, @allowed_params)
+    |> validate_required(@required_params)
+  end
+
 end
