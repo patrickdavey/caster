@@ -39,11 +39,9 @@ defmodule Caster.CastViewer do
     @behaviour Caster.CastViewerBehaviour
 
     def view!(cast = %Cast{}) do
-      Task.Supervisor.async_nolink(Caster.TaskSupervisor, fn ->
-        changeset = Cast.changeset(cast, %{viewed: true})
-        Repo.update!(changeset)
-        {:ok}
-      end)
+      changeset = Cast.changeset(cast, %{viewed: true})
+      Repo.update!(changeset)
+      {:ok}
     end
   end
 end

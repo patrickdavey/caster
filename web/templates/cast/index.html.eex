@@ -12,7 +12,6 @@
 <%= for cast <- @casts do %>
     <tr>
       <td><%= cast.title %></td>
-      <td><%= Caster.Cast.downloaded?(cast) %></td>
 
       <td class="text-right">
         <%= cast_link(@conn, cast) %>
