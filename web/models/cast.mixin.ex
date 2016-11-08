@@ -9,9 +9,7 @@ defmodule Caster.Cast.Mixin do
         from c in query, select: c.title
       end
       def sorted do
-        from v in Caster.VimCast,
-          where: v.source == ^source,
-          order_by: [desc: v.published_at]
+        raise "should be overridden"
       end
       defoverridable [sorted: 0]
     end

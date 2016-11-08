@@ -18,6 +18,7 @@ defmodule Caster.PageControllerTest do
     conn = get conn, "/?type=vimcast"
     refute html_response(conn, 200) =~ "customcasttest"
     assert html_response(conn, 200) =~ "vimcasttest"
+    assert html_response(conn, 200) =~ "Listing Vimcasts"
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do

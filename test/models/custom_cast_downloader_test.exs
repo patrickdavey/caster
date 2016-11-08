@@ -4,15 +4,16 @@ defmodule Caster.CustomCastDownloaderTest do
 
   alias Caster.CustomCastDownloader
   alias Caster.CustomCast
+  alias Caster.Cast
 
   test "can fetch a title correctly from youtube" do
-    { :ok, title } = CustomCastDownloader.get_title(%CustomCast{url: "https://www.youtube.com/watch?v=muFHHa370Ks"})
+    { :ok, title } = CustomCastDownloader.ProdClient.get_title(%CustomCast{url: "https://www.youtube.com/watch?v=muFHHa370Ks"})
 
     assert title == "falklands south georgia antarctica timelapse"
   end
 
   test "has the correct filename and directory path" do
-    { :ok, filename } = CustomCastDownloader.get_filepath(%CustomCast{url: "https://www.youtube.com/watch?v=muFHHa370Ks"})
+    { :ok, filename } = CustomCastDownloader.ProdClient.get_filepath(%Cast{url: "https://www.youtube.com/watch?v=muFHHa370Ks"})
 
     filename_expected = Path.expand('downloads/custom/falklands_south_georgia_antarctica_timelapse-muFHHa370Ks.mp4', Application.app_dir(:caster, "priv"))
     assert filename == filename_expected

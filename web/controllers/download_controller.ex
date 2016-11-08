@@ -8,6 +8,7 @@ defmodule Caster.DownloadController do
       cond do
         conn.assigns[:downloader] -> conn.assigns[:downloader]
         cast.source == "customcast" -> Caster.CustomCastDownloader.ProdClient
+        cast.source == "vimcast" -> Caster.VimCast.Downloader
         :otherwise -> raise "something is broken"
       end
 

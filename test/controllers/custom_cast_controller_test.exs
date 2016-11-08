@@ -7,7 +7,7 @@ defmodule Caster.CustomCastControllerTest do
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, cast_path(conn, :index)
-    assert html_response(conn, 200) =~ "Listing custom casts"
+    assert html_response(conn, 200) =~ "Listing Custom"
   end
 
   test "renders form for new resources", %{conn: conn} do

@@ -1,4 +1,4 @@
-<h2>Listing custom casts</h2>
+<h2>Listing <%= @title %></h2>
 
 <table class="table">
   <thead>
