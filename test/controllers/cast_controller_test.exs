@@ -1,24 +1,14 @@
 defmodule Caster.PageControllerTest do
   use Caster.ConnCase
-  alias Caster.CustomCast
   alias Caster.VimCast
   alias Caster.Cast
 
-  test "GET /", %{conn: conn} do
-    Repo.insert!(%VimCast{title: "vimcasttest", url: "a"})
-    Repo.insert!(%CustomCast{title: "customcasttest", url: "a" })
-    conn = get conn, "/"
-    assert html_response(conn, 200) =~ "customcasttest"
-    refute html_response(conn, 200) =~ "vimcasttest"
-  end
-
-  test "GET /?type=vimcast", %{conn: conn} do
-    Repo.insert!(%VimCast{title: "vimcasttest", url: "a"})
-    Repo.insert!(%CustomCast{title: "customcasttest", url: "a" })
-    conn = get conn, "/?type=vimcast"
-    refute html_response(conn, 200) =~ "customcasttest"
-    assert html_response(conn, 200) =~ "vimcasttest"
-    assert html_response(conn, 200) =~ "Listing Vimcasts"
+  test "updates post correctly", %{conn: conn} do
+    note_attr = %{note: "some new note"}
+    cast = Repo.insert!(%VimCast{title: "vimcasttest", url: "a"})
+    put conn, cast_path(conn, :update, cast, cast: note_attr)
+    cast = Repo.get!(Cast, cast.id)
+    assert cast.note == "some new note"
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do

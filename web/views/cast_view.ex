@@ -9,4 +9,33 @@ defmodule Caster.CastView do
     link "Show", to: cast_path(conn, :show, cast), class: "btn btn-default btn-xs"
   end
 
+  def render("index.json", %{casts: casts, title: title}) do
+    %{
+      title: title,
+      casts: render_many(casts, __MODULE__, "cast.json")
+    }
+  end
+
+  def render("cast.json", %{cast: cast}) do
+    %{
+      id: cast.id,
+      interesting: cast.interesting,
+      title: cast.title,
+      source: cast.source,
+      note: cast.note,
+      state: state(cast)
+    }
+  end
+
+  defp state(%{viewed: true}), do: "viewed"
+  defp state(%{file_location: file_location}) when is_binary(file_location), do: "downloaded"
+  defp state(_), do: "fresh"
+
+    # if viewed?
+    #   "viewed"
+    # elsif downloaded?
+    #   "downloaded"
+    # else
+    #   "fresh"
+    # end
 end

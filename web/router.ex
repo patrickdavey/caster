@@ -2,7 +2,7 @@ defmodule Caster.Router do
   use Caster.Web, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
+    plug :accepts, ["html", "json"]
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
@@ -18,7 +18,7 @@ defmodule Caster.Router do
 
     get "/", CastController, :index
 
-    resources "/casts", CastController, only: [:index, :show] do
+    resources "/casts", CastController, only: [:index, :show, :update] do
       resources "/downloads", DownloadController, only: [:create, :destroy]
     end
 
