@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+phantomjs --wd > /dev/null &
+pid=$!
+trap "kill $pid" INT TERM EXIT
+mix test --include feature

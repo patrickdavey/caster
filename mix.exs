@@ -18,9 +18,19 @@ defmodule Caster.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Caster, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext, :timex_ecto,
-                    :phoenix_ecto, :httpoison, :postgrex]]
+     applications: app_list(Mix.env)]
   end
+
+  defp app_list do
+    [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext, :timex_ecto,
+     :phoenix_ecto, :httpoison, :postgrex]
+  end
+
+  def app_list(:test) do
+    [ :hound | app_list ]
+  end
+
+  def app_list(_), do: app_list
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
@@ -35,13 +45,14 @@ defmodule Caster.Mixfile do
      {:phoenix_ecto, "~> 3.0"},
      {:credo, "~> 0.4", only: [:dev, :test]},
      {:postgrex, ">= 0.0.0"},
-     {:phoenix_html, "~> 2.6"},
+     {:phoenix_html, "~> 2.7"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:timex, "~> 3.0"},
      {:timex_ecto, "~> 3.0"},
      {:gettext, "~> 0.11"},
      {:httpoison, "~> 0.9.0"},
      {:feeder_ex, "~> 0.0.4"},
+     {:hound, "~> 1.0", only: :test},
      {:cowboy, "~> 1.0"}]
   end
 
