@@ -22,7 +22,7 @@
 
       <div v-if="hasNormalCasts">
         <h2>Other items</h2>
-        <table class="table">
+        <table class="normal table">
           <thead>
             <tr>
               <th>Name</th>

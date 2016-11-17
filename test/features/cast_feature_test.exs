@@ -29,4 +29,14 @@ defmodule Caster.Features.CastTest do
     assert Regex.match?(~r/New custom cast/i, element_text)
   end
 
+  test "interesting can be toggled" do
+    Repo.insert!(%Caster.CustomCast{title: "happycustom", url: "a"})
+    Repo.insert!(%Caster.CustomCast{title: "interestinghappycustom", url: "a", interesting: true})
+    navigate_to("/casts")
+    interesting_text = find_element(:css, ".interesting.table") |> visible_text
+    assert Regex.match?(~r/interestinghappycustom/i, interesting_text)
+    normal_text = find_element(:css, ".normal.table") |> visible_text
+    assert Regex.match?(~r/happycustom/i, normal_text)
+  end
+
 end

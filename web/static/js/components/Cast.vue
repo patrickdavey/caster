@@ -94,7 +94,7 @@ export default Vue.extend({
     },
 
     toggleInteresting: function () {
-      this.$http.post('/items/' + this.cast.id + '/interesting.json')
+      this.$http.put('/casts/' + this.cast.id, { cast: { interesting: !this.cast.interesting } })
         .then(response => {
           this.cast.interesting = !this.cast.interesting;
         }, error => {
