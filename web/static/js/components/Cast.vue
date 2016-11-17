@@ -73,7 +73,7 @@ export default Vue.extend({
       this.$dispatch('toast-msg', "starting download")
     },
     download: function() {
-      this.$http.post('/items/' + this.cast.id + '/download.json')
+      this.$http.post('/casts/' + this.cast.id + '/downloads')
         .then(response => {
           this.downloadStarted();
         }, error => {
@@ -81,7 +81,7 @@ export default Vue.extend({
         })
     },
     removeDownload: function() {
-      this.$http.post('/items/' + this.cast.id + '/remove_download.json')
+      this.$http.delete('/casts/' + this.cast.id + '/downloads')
         .then(response => {
           this.downloadRemoved();
         }, error => {

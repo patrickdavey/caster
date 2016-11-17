@@ -14,15 +14,15 @@ defmodule Caster.DownloadController do
 
     downloader.download!(cast)
 
-    conn
-    |> put_flash(:info, "Cast downloading...")
-    |> redirect(to: cast_path(conn, :index))
+    send_resp(conn, :ok, "")
   end
 
-  def destroy(conn, _) do
-    conn
-    |> put_flash(:info, "Cast deleted.")
-    |> redirect(to: cast_path(conn, :index))
+  def delete(conn, %{"cast_id" => cast_id}) do
+    cast = Repo.get!(Cast, cast_id)
+    File.rm!(cast.file_location)
+    changeset = Cast.changeset(cast, %{file_location: nil})
+    Repo.update!(changeset)
+    send_resp(conn, :ok, "")
   end
 
 end

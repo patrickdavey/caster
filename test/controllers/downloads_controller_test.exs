@@ -7,7 +7,7 @@ defmodule Caster.DownloadControllerTest do
     conn = conn
            |> assign(:downloader, Caster.CustomCastDownloader.TestClient)
     conn = post conn, cast_download_path(conn, :create, custom_cast)
-    assert html_response(conn, 302)
+    assert conn.status == 200
     custom_cast = Repo.get!(CustomCast, custom_cast.id)
     assert custom_cast.file_location
   end

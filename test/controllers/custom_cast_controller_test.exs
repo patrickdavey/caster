@@ -15,16 +15,4 @@ defmodule Caster.CustomCastControllerTest do
     assert redirected_to(conn) == cast_path(conn, :index)
     assert Repo.get_by(CustomCast, @valid_attrs)
   end
-
-  # test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-  #   conn = post conn, custom_cast_path(conn, :create), custom_cast: @invalid_attrs
-  #   assert html_response(conn, 200) =~ "New custom cast"
-  # end
-
-  # test "shows chosen resource", %{conn: conn} do
-  #   custom_cast = Repo.insert! %CustomCast{}
-  #   conn = get conn, custom_cast_path(conn, :show, custom_cast)
-  #   assert html_response(conn, 200) =~ "Show custom cast"
-  # end
-
 end

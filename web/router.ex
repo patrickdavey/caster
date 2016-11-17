@@ -19,7 +19,8 @@ defmodule Caster.Router do
     get "/", CastController, :index
 
     resources "/casts", CastController, only: [:index, :show, :update] do
-      resources "/downloads", DownloadController, only: [:create, :destroy]
+      post "/downloads", DownloadController, :create
+      delete "/downloads", DownloadController, :delete
     end
 
     resources "/custom_casts", CustomCastController, only: [:new, :create]
