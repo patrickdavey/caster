@@ -13,6 +13,7 @@
     "test": "karma start karma.conf.js"
   },
   "dependencies": {
+    "phoenix": "^1.2.1",
     "vue": "^1.0.0",
     "vue-resource": "^0.7.0",
     "vue-strap": "^1.0.11",

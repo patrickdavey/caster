@@ -5,6 +5,7 @@ import VueResource from 'vue-resource'
 // COMPONENTS
 import CastList from './components/Cast-List.vue'
 import VueToast from 'vue-toast'
+import { socket } from './socket';
 
 // PLUGINS
 Vue.use(VueResource)
