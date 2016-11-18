@@ -47,23 +47,39 @@ defmodule Caster.VimCast do
     |> validate_required(@required_params)
   end
 
-
   defmodule Downloader do
+    require Logger
     alias Caster.Cast
     alias Caster.VimCast
     alias Caster.Repo
+
     @download_subdirectory "vimcasts"
 
     def download!(cast = %Cast{url: url}) do
       Task.Supervisor.async_nolink(Caster.TaskSupervisor, fn ->
-        Path.basename(url)
         filepath = Path.expand("#{Application.get_env(:caster, :root_downloads_directory)}/#{@download_subdirectory}/#{Path.basename(url)}", Application.app_dir(:caster, "priv"))
         Mix.Generator.create_directory(Path.dirname(filepath))
-        %HTTPoison.Response{body: body} = HTTPoison.get!(url)
-        File.write!(filepath, body)
-        changeset = VimCast.changeset(cast, %{file_location: filepath})
-        Repo.update!(changeset)
+        file = File.open! filepath, [:append]
+        HTTPoison.get!(url, %{}, [stream_to: self])
+        rloop({cast, file, filepath})
       end)
+    end
+
+    defp rloop({cast, file, filepath})  do
+      receive do
+        %HTTPoison.AsyncChunk{chunk: chunk} ->
+          IO.binwrite(file, chunk)
+          rloop({cast, file, filepath})
+        %HTTPoison.AsyncEnd{} ->
+          :ok = File.close file
+          changeset = VimCast.changeset(cast, %{file_location: filepath})
+          Repo.update!(changeset)
+        after
+          1_000 ->
+            File.close file
+            File.rm filepath
+            Logger.info "exiting download loop, nothing after 1 second"
+        end
     end
   end
 end
