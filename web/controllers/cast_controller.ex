@@ -27,9 +27,7 @@ defmodule Caster.CastController do
 
     viewer.view!(cast)
 
-    conn
-    |> put_flash(:info, "Lauching Cast in VLC...")
-    |> redirect(to: cast_path(conn, :index))
+    send_resp(conn, :ok, "")
   end
 
   def update(conn, %{"id" => id, "cast" => cast_params}) do

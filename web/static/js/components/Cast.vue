@@ -7,7 +7,7 @@
         v-bind:class="{ 'glyphicon-star': cast.interesting, 'glyphicon-star-empty': !cast.interesting }"
       aria-hidden="true"></span>
 
-      <a v-if="fileExists" :href="showPath">{{ cast.title }}</a>
+      <a v-if="fileExists" :href="showPath" v-on:click.stop.prevent="launchVideo">{{ cast.title }}</a>
       <span v-else>{{ cast.title }}</span>
     </td>
     <td>
@@ -77,6 +77,10 @@ export default Vue.extend({
   },
 
   methods: {
+    launchVideo: function() {
+      this.$http.get('/casts/' + this.cast.id);
+    },
+
     openModal: function () {
       this.$parent.showModal = true;
       this.$parent.selectedCast = this.cast;

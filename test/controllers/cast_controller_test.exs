@@ -23,7 +23,7 @@ defmodule Caster.PageControllerTest do
     conn = conn
            |> assign(:viewer, Caster.CastViewer.TestClient)
     conn = get conn, cast_path(conn, :show, cast.id)
-    assert html_response(conn, 302)
+    assert conn.status == 200
     cast = Repo.get!(Cast, cast.id)
     assert cast.viewed
   end
