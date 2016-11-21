@@ -30,12 +30,4 @@ defmodule Caster.CastView do
   defp state(%{viewed: true}), do: "viewed"
   defp state(%{file_location: file_location}) when is_binary(file_location), do: "downloaded"
   defp state(_), do: "fresh"
-
-    # if viewed?
-    #   "viewed"
-    # elsif downloaded?
-    #   "downloaded"
-    # else
-    #   "fresh"
-    # end
 end

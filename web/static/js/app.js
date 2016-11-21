@@ -1,6 +1,7 @@
 // VENDOR
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+import PhoenixVueSocket from './plugins/Phoenix-Vue-Socket'
 
 // COMPONENTS
 import CastList from './components/Cast-List.vue'
@@ -8,6 +9,7 @@ import VueToast from 'vue-toast'
 
 // PLUGINS
 Vue.use(VueResource)
+Vue.use(PhoenixVueSocket)
 
 let csrf = document.querySelector('meta[name="csrf-token"]');
 

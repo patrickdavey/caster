@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build-assets": "cp -r web/static/assets/* priv/static",
-    "watch-assets": "watch-run -p 'web/static/assets/*' npm run build-assets",
+    "watch-assets": "watch-run -p 'web/static/assets/**/*' npm run build-assets",
     "watch-js": "watchify -vd -p browserify-hmr -e web/static/js/app.js -o priv/static/js/app.js",
     "watch-css": "catw web/static/css/*.css -o priv/static/css/app.css -v",
     "watch": "npm run watch-assets & npm run watch-js & npm run watch-css",

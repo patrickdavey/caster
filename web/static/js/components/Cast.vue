@@ -11,23 +11,21 @@
       <span v-else>{{ cast.title }}</span>
     </td>
     <td>
-      <template v-if="cast.state === 'viewed'">
+      <template v-if="cast.state === 'viewed' || cast.state === 'downloaded' ">
         <button type="button" v-on:click="removeDownload" class="btn btn-danger" name="removeDownload">
           Remove Download
         </button>
       </template>
-      <template v-if="cast.state === 'downloaded'">
-        <button type="button" v-on:click="removeDownload" name="removeDownload" class="btn btn-danger">
-          Remove Download
-        </button>
-      </template>
+
       <template v-if="cast.state === 'fresh'">
         <button type="button" name="download" v-on:click="download" class="btn btn-primary">
           <span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download
         </button>
       </template>
+
       <template v-if="cast.state === 'downloading'">
         Downloading...
+        <i class="fa fa-spin fa-spinner" aria-hidden="true"></i>
       </template>
 
       <button class="btn btn-default"
@@ -41,23 +39,10 @@
 <script>
 
 import Vue from 'vue'
-import {Socket} from "phoenix"
 
 export default Vue.extend({
   props: {
     cast: Object
-  },
-
-  created: function() {
-    let socket = new Socket("/socket", {})
-
-    socket.connect()
-
-    var chan = socket.channel("cast:cast" + this.cast.id, {})
-    chan.join();
-    chan.on("downloaded", msg => {
-      this.cast.state = 'downloaded';
-    });
   },
 
   computed: {
@@ -90,6 +75,12 @@ export default Vue.extend({
       this.$dispatch('toast-msg', "starting download")
     },
     download: function() {
+      let chan = this.$socket.channel("cast:cast" + this.cast.id, {});
+      chan.join();
+      chan.on("downloaded", msg => {
+        this.cast.state = 'downloaded';
+        chan.leave()
+      });
       this.$http.post('/casts/' + this.cast.id + '/downloads')
         .then(response => {
           this.downloadStarted();
