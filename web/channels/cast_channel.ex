@@ -1,15 +1,9 @@
 defmodule Caster.CastChannel do
   use Caster.Web, :channel
 
-  def join("cast:lobby", payload, socket) do
-    if authorized?(payload) do
-       :timer.send_interval(5000, :ping)
-      {:ok, socket}
-    else
-      {:error, %{reason: "unauthorized"}}
-    end
+  def join("cast:" <> _cast_id, _params, socket) do
+    {:ok, socket}
   end
-
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
   def handle_in("ping", payload, socket) do
@@ -24,7 +18,7 @@ defmodule Caster.CastChannel do
   end
 
   def handle_info(:ping, socket) do
-    push socket, "new:msg", %{user: "SYSTEM", body: "ping"}
+    broadcast! socket, "new:msg", %{user: "SYSTEM", body: "ping"}
     {:noreply, socket}
    end
   # Add authorization logic here as required.

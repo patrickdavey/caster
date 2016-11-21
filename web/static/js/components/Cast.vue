@@ -41,6 +41,7 @@
 <script>
 
 import Vue from 'vue'
+import {Socket} from "phoenix"
 
 export default Vue.extend({
   props: {

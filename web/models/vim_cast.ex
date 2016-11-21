@@ -74,6 +74,8 @@ defmodule Caster.VimCast do
           :ok = File.close file
           changeset = VimCast.changeset(cast, %{file_location: filepath})
           Repo.update!(changeset)
+          # broadcast a downloaded event
+          Caster.Endpoint.broadcast("cast:cast#{cast.id}", "downloaded", %{msg: "downloaded"})
         after
           1_000 ->
             File.close file
