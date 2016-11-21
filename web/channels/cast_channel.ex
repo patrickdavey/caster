@@ -1,7 +1,7 @@
 defmodule Caster.CastChannel do
   use Caster.Web, :channel
 
-  def join("cast:" <> _cast_id, _params, socket) do
+  def join("cast:cast" <> _cast_id, _params, socket) do
     {:ok, socket}
   end
   # Channels can be used in a request/response fashion

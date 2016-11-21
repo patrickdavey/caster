@@ -48,6 +48,18 @@ export default Vue.extend({
     cast: Object
   },
 
+  created: function() {
+    let socket = new Socket("/socket", {})
+
+    socket.connect()
+
+    var chan = socket.channel("cast:cast" + this.cast.id, {})
+    chan.join();
+    chan.on("downloaded", msg => {
+      this.cast.state = 'downloaded';
+    });
+  },
+
   computed: {
     showPath: function() {
       return '/casts/' + this.cast.id;

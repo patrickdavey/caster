@@ -11,7 +11,7 @@ defmodule Caster.DownloadController do
         cast.source == "vimcast" -> Caster.VimCast.Downloader
         :otherwise -> raise "something is broken"
       end
-      #downloader.download!(cast)
+    downloader.download!(cast)
 
     send_resp(conn, :ok, "")
   end
