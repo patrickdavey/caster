@@ -6,7 +6,7 @@ defmodule Caster.CastChannelTest do
   setup do
     {:ok, _, socket} =
       socket("user_id", %{})
-      |> subscribe_and_join(CastChannel, "cast:cast1")
+      |> subscribe_and_join(CastChannel, "casts:cast1")
 
     {:ok, socket: socket}
   end

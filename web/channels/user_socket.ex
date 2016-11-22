@@ -2,7 +2,7 @@ defmodule Caster.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "cast:*", Caster.CastChannel
+  channel "casts:*", Caster.CastChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

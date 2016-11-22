@@ -75,7 +75,7 @@ export default Vue.extend({
       this.$dispatch('toast-msg', "starting download")
     },
     download: function() {
-      let chan = this.$socket.channel("cast:cast" + this.cast.id, {});
+      let chan = this.$socket.channel("casts:cast" + this.cast.id, {});
       chan.join();
       chan.on("downloaded", msg => {
         this.cast.state = 'downloaded';

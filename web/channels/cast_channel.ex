@@ -1,7 +1,7 @@
 defmodule Caster.CastChannel do
   use Caster.Web, :channel
 
-  def join("cast:cast" <> _cast_id, _params, socket) do
+  def join("casts:cast" <> _cast_id, _params, socket) do
     {:ok, socket}
   end
   # Channels can be used in a request/response fashion
@@ -21,8 +21,4 @@ defmodule Caster.CastChannel do
     broadcast! socket, "new:msg", %{user: "SYSTEM", body: "ping"}
     {:noreply, socket}
    end
-  # Add authorization logic here as required.
-  defp authorized?(_payload) do
-    true
-  end
 end
