@@ -44,6 +44,7 @@ defmodule Caster.Mixfile do
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.0"},
      {:credo, "~> 0.4", only: [:dev, :test]},
+     {:temp, "~> 0.4", only: [:test]},
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.7"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},

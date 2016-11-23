@@ -1,15 +1,28 @@
 defmodule Mix.Tasks.Caster.ExportNotes do
   use Mix.Task
+  import Mix.Ecto
+  import Ecto.Query
 
   @shortdoc "Export notes to file"
-  def run(args) do
-    [:postgrex, :ecto]
-    |> Enum.each(&Application.ensure_all_started/1)
+  def run(_args, notes_file \\ Application.get_env(:caster, :notes_export_file)) do
+    repo = Caster.Repo
+    ensure_repo(repo, [])
+    ensure_started(repo, [])
+    casts = repo.all(from v in Caster.Cast,
+      where: not(is_nil(v.note)) and v.note != "",
+      order_by: [desc: v.updated_at])
 
-    Caster.Repo.start_link
+    notes = casts
+            |> Enum.map_join("\n\n", &format_note/1)
 
-    casts = Caster.Repo.all(Caster.Cast)
+    File.write!(notes_file, to_charlist(notes), [:write, :utf8])
+  end
 
-    Enum.each(casts, fn(s) -> IO.puts(s.title) end)
+  defp format_note(%{note: note, url: nil, title: title}) do
+    "### #{title}\n#{note}"
+  end
+
+  defp format_note(%{note: note, url: url, title: title}) do
+    "### [#{title}](#{url})\n#{note}"
   end
 end
