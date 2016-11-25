@@ -39,6 +39,8 @@ defmodule Caster.CustomCastDownloader do
         System.cmd("youtube-dl", ["-o", filepath,  url])
         changeset = CustomCast.changeset(cast, %{file_location: filepath})
         Repo.update!(changeset)
+        # the broadcasting _really_ shouldn't be here.
+        Caster.Endpoint.broadcast("casts:cast#{cast.id}", "downloaded", %{msg: "downloaded"})
       end)
     end
   end
