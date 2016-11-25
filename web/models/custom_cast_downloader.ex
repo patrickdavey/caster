@@ -5,7 +5,7 @@ defmodule Caster.DownloaderBehaviour do
   @doc "fetches data from an external source"
   @callback get_title(%{}) :: {:ok, term}
   @callback get_filepath(%{}) :: {:ok, term}
-  @callback download!(%{}) :: {:ok }
+  @callback download!(%{}) :: {:ok}
 end
 
 defmodule Caster.CustomCastDownloader do
@@ -58,7 +58,7 @@ defmodule Caster.CustomCastDownloader do
     @download_subdirectory "custom"
 
     def get_title(_) do
-      { :ok, "my happy title" }
+      {:ok, "my happy title"}
     end
 
     def get_filepath(_) do
@@ -69,7 +69,7 @@ defmodule Caster.CustomCastDownloader do
       {:ok, filepath} = get_filepath(cast)
       changeset = CustomCast.changeset(cast, %{file_location: filepath})
       Repo.update!(changeset)
-      { :ok }
+      {:ok}
     end
   end
 end

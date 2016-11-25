@@ -1,4 +1,11 @@
 defmodule Mix.Tasks.Caster.ExportNotes do
+  @moduledoc """
+  Mix task to export any notes (assumed in markdown format)
+  out to a file.
+
+  File is specified in the get_env(:caster, :notes_export_file)
+  """
+
   use Mix.Task
   import Mix.Ecto
   import Ecto.Query

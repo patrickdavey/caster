@@ -48,6 +48,11 @@ defmodule Caster.VimCast do
   end
 
   defmodule Downloader do
+    @moduledoc """
+    This downloader finds the file at a url and downloads it into a path.
+    It does this with a chunked write, however there is no backpressure
+    so that could be looked into at somepoint
+    """
     require Logger
     alias Caster.Cast
     alias Caster.VimCast
