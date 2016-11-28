@@ -9,9 +9,9 @@ defmodule Caster.CastView do
     link "Show", to: cast_path(conn, :show, cast), class: "btn btn-default btn-xs"
   end
 
-  def render("index.json", %{casts: casts, title: title}) do
+  def render("index.json", %{casts: casts, source: source}) do
     %{
-      title: title,
+      title: Caster.LayoutView.title_for_source(source),
       casts: render_many(casts, __MODULE__, "cast.json")
     }
   end

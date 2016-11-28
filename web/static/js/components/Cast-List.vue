@@ -57,7 +57,7 @@
     data () {
       return {
         casts: [],
-        title: "Casts",
+        title: "",
         showModal: false,
         selectedCast: { title: "", note: "" },
         error: null
@@ -99,7 +99,7 @@
 
     methods: {
       castType () {
-        return window.type || 'custom';
+        return window.source || 'customcast';
       },
 
       saveNote: function () {
@@ -113,7 +113,7 @@
       },
 
       fetchCasts () {
-        this.$http.get('/casts?type=' + this.castType())
+        this.$http.get('/casts?source=' + this.castType())
         .then(response => {
           this.error = null;
           this.casts = response.data.casts;

@@ -1,5 +1,5 @@
 <cast-list></cast-list>
 
 <script type="text/javascript">
-  window.type = "<%= @conn.params["type"] %>";
+  window.source = "<%= @conn.assigns.source %>";
 </script>

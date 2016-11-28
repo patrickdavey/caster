@@ -17,8 +17,9 @@
       <header class="header">
         <nav role="navigation">
           <ul class="nav nav-pills pull-right">
-            <li><%= link "Vimcasts", to: cast_path(@conn, :index, type: :vimcast) %></li>
-            <li><%= link "Custom", to: cast_path(@conn, :index) %></li>
+            <%= for source <- sources do %>
+            <li><%= link source.title, to: cast_path(@conn, :index, source: source.source) %></li>
+            <% end %>
             <li><%= link "New", to: custom_cast_path(@conn, :new) %></li>
           </ul>
         </nav>

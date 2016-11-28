@@ -2,18 +2,15 @@ defmodule Caster.CastController do
   use Caster.Web, :controller
   alias Caster.Cast
 
-  def index(conn, %{"type" => "vimcast"}) do
-    casts =
-      Repo.all(Caster.VimCast.sorted)
+  plug :set_source when action in [:index]
 
-    render conn, :index, casts: casts, title: "Vimcasts"
-  end
+  def index(conn, params) do
+    casts = Caster.Cast
+            |> where([c], c.source == ^conn.assigns.source)
+            |> order_by([c], [desc: c.episode])
+            |> Caster.Repo.all
 
-  def index(conn, _params) do
-    casts = Repo.all(from c in Caster.CustomCast,
-      where: c.source == "customcast",
-      select: c)
-    render conn, :index, casts: casts, title: "Custom Casts"
+    render conn, :index, casts: casts, source: conn.assigns.source
   end
 
   def show(conn, %{"id" => id}) do
@@ -41,4 +38,11 @@ defmodule Caster.CastController do
     end
   end
 
+  defp set_source(%Plug.Conn{params: %{"source" => source}} = conn, _) do
+    assign(conn, :source, source)
+  end
+
+  defp set_source(conn, _) do
+    assign(conn, :source, "customcast")
+  end
 end
