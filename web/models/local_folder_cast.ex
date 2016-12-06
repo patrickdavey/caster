@@ -25,9 +25,9 @@ defmodule Caster.LocalFolderCast do
   end
 
   def import! do
-     folders = Application.get_env(:caster, Caster.Sources)[:local_folders]
-               |> Enum.map(fn(folder) -> %LocalFolder{source: folder.source, directory: folder.directory, title: folder.title, wildcard_match: folder.wildcard_match} end)
-               |> Enum.each(&scan/1)
+     Application.get_env(:caster, Caster.Sources)[:local_folders]
+       |> Enum.map(fn(folder) -> %LocalFolder{source: folder.source, directory: folder.directory, title: folder.title, wildcard_match: folder.wildcard_match} end)
+       |> Enum.each(&scan/1)
   end
 
   defp scan(%LocalFolder{source: source, directory: directory, wildcard_match: wildcard_match}) do

@@ -1,7 +1,8 @@
 defmodule Caster.CustomCastControllerTest do
   use Caster.ConnCase
-
   alias Caster.CustomCast
+  @moduletag :production_api_test
+
   @valid_attrs %{url: "https://www.youtube.com/watch?v=muFHHa370Ks"}
   @invalid_attrs %{}
 
