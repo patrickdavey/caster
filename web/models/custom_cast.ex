@@ -12,10 +12,6 @@ defmodule Caster.CustomCast do
   @required_params [:title, :url]
   @source :customcast
 
-  defp source do
-    Atom.to_string(@source)
-  end
-
   schema "casts" do
     field :title, :string
     field :url, :string

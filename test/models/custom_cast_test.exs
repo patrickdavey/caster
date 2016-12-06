@@ -2,7 +2,6 @@ defmodule Caster.CustomCastTest do
   use Caster.ModelCase
 
   alias Caster.CustomCast
-  alias Caster.RailsCast
 
   @invalid_attrs %{}
 

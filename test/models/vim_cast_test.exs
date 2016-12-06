@@ -2,7 +2,6 @@ defmodule Caster.VimCastTest do
   use Caster.ModelCase
 
   alias Caster.VimCast
-  alias Caster.RailsCast
 
   @invalid_attrs %{}
 

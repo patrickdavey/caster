@@ -26,10 +26,6 @@ defmodule Caster.VimCast do
     timestamps()
   end
 
-  defp source do
-    Atom.to_string(@source)
-  end
-
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
