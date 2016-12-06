@@ -23,23 +23,6 @@ defmodule Caster.VimCastTest do
     assert vimcast.source == "vimcast"
   end
 
-  test "sorted/1 sorts by published_at" do
-    Repo.insert!(%VimCast{title: "happy", url: "a", published_at: Timex.shift(Timex.now, days: -22)})
-    Repo.insert!(%VimCast{title: "tyrion", url: "a", published_at: Timex.now})
-    Repo.insert!(%VimCast{title: "lucky", url: "a", published_at: Timex.shift(Timex.now, days: -10)})
-    Repo.insert!(%VimCast{title: "grumpy", url: "a", published_at: Timex.shift(Timex.now, days: -5)})
-
-    query = VimCast.sorted |> VimCast.titles
-    assert Repo.all(query) == ~w(tyrion grumpy lucky happy)
-  end
-
-  test "only returns vimcast models" do
-    Repo.insert!(%VimCast{title: "happy", url: "a", published_at: Timex.shift(Timex.now, days: -22)})
-    Repo.insert!(%RailsCast{title: "worried", url: "a", episode: 1, published_at: Timex.shift(Timex.now, days: -5)})
-    videos = Repo.all(VimCast.sorted)
-    assert length(videos) == 1
-  end
-
   defp insert_vimcast(attrs) do
     %Caster.VimCast{}
       |> Caster.VimCast.changeset(attrs)

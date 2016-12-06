@@ -6,7 +6,6 @@ defmodule Caster.CustomCast do
 
   """
   use Caster.Web, :model
-  use Caster.Cast.Mixin
 
   @allowed_params [:title, :url, :file_location,
                    :viewed, :interesting, :source, :note]
@@ -38,11 +37,4 @@ defmodule Caster.CustomCast do
     |> cast(changes, @allowed_params)
     |> validate_required(@required_params)
   end
-
-  def sorted do
-    from v in Caster.RailsCast,
-      where: v.source == ^source,
-      order_by: [desc: v.inserted_at]
-  end
-
 end

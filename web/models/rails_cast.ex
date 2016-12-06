@@ -6,7 +6,6 @@ defmodule Caster.RailsCast do
 
   """
   use Caster.Web, :model
-  use Caster.Cast.Mixin
 
   @allowed_params [:title, :url, :file_location, :episode, :published_at,
                    :viewed, :interesting, :source, :note]

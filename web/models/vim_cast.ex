@@ -6,7 +6,6 @@ defmodule Caster.VimCast do
 
   """
   use Caster.Web, :model
-  use Caster.Cast.Mixin
 
   @allowed_params [:title, :url, :file_location, :episode, :published_at,
                    :viewed, :interesting, :source, :note]
@@ -29,12 +28,6 @@ defmodule Caster.VimCast do
 
   defp source do
     Atom.to_string(@source)
-  end
-
-  def sorted do
-    from v in Caster.VimCast,
-      where: v.source == ^source,
-      order_by: [desc: v.published_at]
   end
 
   @doc """
