@@ -25,4 +25,18 @@ config :logger, :console,
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
+
+config :caster, Caster.Sources,
+  inbuilt: [
+    %{
+      source: :customcast,
+      title: "Custom casts"
+    },
+    %{
+      source: :vimcast,
+      order: [desc: :published_at],
+      title: "Vimcasts"
+    }
+   ]
+
 import_config "#{Mix.env}.exs"

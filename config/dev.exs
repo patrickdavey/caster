@@ -40,9 +40,3 @@ config :caster, Caster.Repo,
   pool_size: 10
 
 import_config "dev.secret.exs"
-
-config :caster, Caster.Sources,
-  inbuilt: [
-    %{ source: :customcast, title: "Custom casts" },
-    %{ source: :vimcast, title: "Vimcasts" }
-   ]
