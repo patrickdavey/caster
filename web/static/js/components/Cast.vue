@@ -11,7 +11,7 @@
       <span v-else>{{ cast.title }}</span>
     </td>
     <td>
-      <template v-if="cast.state === 'viewed' || cast.state === 'downloaded' ">
+      <template v-if="showRemove() === true">
         <button type="button" v-on:click="removeDownload" class="btn btn-danger" name="removeDownload">
           Remove Download
         </button>
@@ -42,6 +42,7 @@ import Vue from 'vue'
 
 export default Vue.extend({
   props: {
+    removeable: Boolean,
     cast: Object
   },
 
@@ -99,6 +100,10 @@ export default Vue.extend({
     downloadRemoved: function () {
       this.cast.state = 'fresh'
       this.$dispatch('toast-msg', "Removed download")
+    },
+
+    showRemove: function () {
+      return this.removeable && (this.cast.state === 'viewed' || this.cast.state === 'downloaded');
     },
 
     toggleInteresting: function () {

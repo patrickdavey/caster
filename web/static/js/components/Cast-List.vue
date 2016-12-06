@@ -16,7 +16,7 @@
               <th></th>
             </tr>
           </thead>
-          <tr is="cast" :cast="cast" v-for="cast in casts | filterBy 'true' in 'interesting'"></tr>
+          <tr is="cast" :removeable="removeable" :cast="cast" v-for="cast in casts | filterBy 'true' in 'interesting'"></tr>
         </table>
       </div>
 
@@ -30,7 +30,7 @@
               <th></th>
             </tr>
           </thead>
-          <tr is="cast" :cast="cast" v-for="cast in casts | filterBy 'false' in 'interesting'"></tr>
+          <tr is="cast" :cast="cast" :removeable="removeable" v-for="cast in casts | filterBy 'false' in 'interesting'"></tr>
         </table>
       </div>
     </div>
@@ -117,6 +117,7 @@
         .then(response => {
           this.error = null;
           this.casts = response.data.casts;
+          this.removeable = response.data.removeable;
           this.title = response.data.title;
           this.refreshable = response.data.refreshable;
           this.initialFetchComplete = true;

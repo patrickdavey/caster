@@ -13,6 +13,21 @@ describe('Cast.vue', () => {
     expect(vm.$el.querySelector('tr td').textContent.trim()).toBe('testName')
   });
 
+  it('should conditionally render remove button', () => {
+    var mount = document.createElement('div');
+    const vm = new Cast({
+      el: mount,
+      propsData: { cast: {
+        title: 'testName',
+        state: "downloaded"
+      },
+      removeable: false
+      }
+    })
+    expect(vm.$el.querySelector('button[name="removeDownload"]')).toBeFalsy()
+  });
+
+
   describe('fresh casts', () => {
     var vm;
     var testComponent;
