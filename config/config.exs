@@ -34,6 +34,7 @@ config :caster, Caster.Sources,
     },
     %{
       source: :vimcast,
+      refreshable: Caster.VimCastFeed,
       order: [desc: :published_at],
       title: "Vimcasts"
     }

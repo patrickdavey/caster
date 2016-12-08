@@ -26,11 +26,11 @@ export default {
       this.state = "Refreshing";
       this.$parent.casts = [];
 
-      this.$http.put('/refreshes/' + this.name + '.json')
+      this.$http.put('/refreshes/' + this.name)
         .then(response => {
           this.disabled = false;
           this.state = "Refresh";
-          this.$parent.casts = response.data
+          this.$parent.casts = response.data.casts;
         }, error => {
           this.$dispatch('toast-msg', "Could not refresh")
         })

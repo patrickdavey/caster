@@ -18,6 +18,8 @@ defmodule Caster.Router do
 
     get "/", CastController, :index
 
+    resources "/refreshes", RefreshController, only: [:update]
+
     resources "/casts", CastController, only: [:index, :show, :update] do
       post "/downloads", DownloadController, :create
       delete "/downloads", DownloadController, :delete

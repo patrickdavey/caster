@@ -36,6 +36,11 @@ defmodule Caster.VimCast do
     |> validate_required(@required_params)
   end
 
+  def download_path(%{url: url}) do
+    Path.expand("#{Application.get_env(:caster, :root_downloads_directory)}/vimcasts/#{Path.basename(url)}",
+                Application.app_dir(:caster, "priv"))
+  end
+
   defmodule Downloader do
     @moduledoc """
     This downloader finds the file at a url and downloads it into a path.
@@ -47,11 +52,9 @@ defmodule Caster.VimCast do
     alias Caster.VimCast
     alias Caster.Repo
 
-    @download_subdirectory "vimcasts"
-
     def download!(cast = %Cast{url: url}) do
       Task.Supervisor.async_nolink(Caster.TaskSupervisor, fn ->
-        filepath = Path.expand("#{Application.get_env(:caster, :root_downloads_directory)}/#{@download_subdirectory}/#{Path.basename(url)}", Application.app_dir(:caster, "priv"))
+        filepath = VimCast.download_path(cast)
         Mix.Generator.create_directory(Path.dirname(filepath))
         file = File.open! filepath, [:append]
         HTTPoison.get!(url, %{}, [stream_to: self])

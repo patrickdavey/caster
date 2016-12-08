@@ -1,5 +1,8 @@
 defmodule Caster.Feed.VimCastFeed do
   alias Caster.Repo
+  alias Caster.VimCast
+
+  import Ecto.Query
 
   @moduledoc """
   This feed parses the RSS feed for vimcasts and then
@@ -11,21 +14,42 @@ defmodule Caster.Feed.VimCastFeed do
     |> Map.get(:entries)
     |> Enum.filter(&(Map.get(&1, :enclosure)))
     |> Enum.each(&insert_record_unless_existing/1)
+
+    sync_entries!
+
+    VimCast
+    |> where([c], c.source == "vimcast")
+    |> Caster.Repo.all
   end
 
   defp insert_record_unless_existing(%FeederEx.Entry{title: title, enclosure: %{url: url}, updated: published_at} = _record) do
     published_at = Timex.parse!(published_at, "{RFC1123}")
 
-    case Repo.get_by(Caster.VimCast, url: url) do
+    case Repo.get_by(VimCast, url: url) do
       %{id: _id} -> nil
       nil -> insert(title, url, published_at)
     end
   end
 
   defp insert(title, url, published_at) do
-    %Caster.VimCast{}
-      |> Caster.VimCast.changeset(title: title, url: url, published_at: published_at)
+    %VimCast{}
+      |> VimCast.changeset(title: title, url: url, published_at: published_at)
       |> Repo.insert!()
+  end
+
+  defp sync_entries! do
+    VimCast
+    |> where([c], c.source == "vimcast")
+    |> where([c], is_nil(c.file_location))
+    |> Caster.Repo.all
+    |> Enum.each(&attach_file_if_exists/1)
+  end
+
+  defp attach_file_if_exists(cast) do
+    if File.exists?(VimCast.download_path(cast)) do
+      VimCast.changeset(cast, %{file_location: VimCast.download_path(cast)})
+      |> Repo.update!
+    end
   end
 
   defmodule ProdClient do

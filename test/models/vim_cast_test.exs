@@ -22,6 +22,15 @@ defmodule Caster.VimCastTest do
     assert vimcast.source == "vimcast"
   end
 
+  test "has the correct download_path" do
+    original = Application.get_env(:caster, :root_downloads_directory)
+    Application.put_env(:caster, :root_downloads_directory, "/fake/path/")
+    download_path = VimCast.download_path(%VimCast{url: "http://media.vimcasts.org/videos/68/ultisnips-selections.ogv"})
+    assert download_path == "/fake/path/vimcasts/ultisnips-selections.ogv"
+    Application.put_env(:caster, :root_downloads_directory, original)
+  end
+
+
   defp insert_vimcast(attrs) do
     %Caster.VimCast{}
       |> Caster.VimCast.changeset(attrs)
