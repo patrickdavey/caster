@@ -41,10 +41,10 @@ defmodule Caster.CastController do
   end
 
   defp set_source(%Plug.Conn{params: %{"source" => source}} = conn, _) do
-    assign(conn, :source, Caster.Source.find(source))
+    assign(conn, :source, Caster.SourceFinder.find(source))
   end
 
   defp set_source(conn, _) do
-    assign(conn, :source, Caster.Source.find(:customcast))
+    assign(conn, :source, Caster.SourceFinder.find(:customcast))
   end
 end

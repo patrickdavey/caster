@@ -12,8 +12,8 @@ defmodule Caster.CastView do
   def render("index.json", %{casts: casts, source: source}) do
     %{
       title: Caster.LayoutView.title_for_source(source),
-      removeable: Caster.Source.find(source) |> Map.get(:removeable, true),
-      refreshable: Caster.Source.find(source) |> Map.get(:refreshable, false),
+      removeable: source |> Caster.SourceFinder.find |> Map.get(:removeable, true),
+      refreshable: source |> Caster.SourceFinder.find |> Map.get(:refreshable, false),
       casts: render_many(casts, __MODULE__, "cast.json")
     }
   end

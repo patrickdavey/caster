@@ -1,13 +1,15 @@
 defmodule Caster.SourceTest do
   use Caster.ModelCase
+  alias Caster.SourceFinder
+  alias Caster.Source
 
   test "can find a source by string" do
-    source = Caster.Source.find("vimcast")
-    assert source.title == "Vimcasts"
+    %Source{title: title} = SourceFinder.find("vimcast")
+    assert title == "Vimcasts"
   end
 
   test "can find a source by atom" do
-    source = Caster.Source.find(:vimcast)
-    assert source.title == "Vimcasts"
+    %Source{title: title} = SourceFinder.find(:vimcast)
+    assert title == "Vimcasts"
   end
 end
