@@ -9,12 +9,12 @@ defmodule Caster.CastView do
     link "Show", to: cast_path(conn, :show, cast), class: "btn btn-default btn-xs"
   end
 
-  def render("index.json", %{casts: casts, source: source}) do
+  def render("index.json", assigns) do
     %{
-      title: Caster.LayoutView.title_for_source(source),
-      removeable: source |> Caster.SourceFinder.find |> Map.get(:removeable, true),
-      refreshable: source |> Caster.SourceFinder.find |> Map.get(:refreshable, false),
-      casts: render_many(casts, __MODULE__, "cast.json")
+      title: assigns.source.title,
+      removeable: assigns.source |> Map.get(:removeable, true),
+      refreshable: assigns.source |> Map.get(:refreshable, false),
+      casts: render_many(assigns.casts, __MODULE__, "cast.json")
     }
   end
 

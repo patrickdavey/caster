@@ -5,14 +5,16 @@ defmodule Caster.CastController do
   plug :set_source when action in [:index]
 
   def index(conn, _params) do
-    s = Atom.to_string(conn.assigns.source.source)
+    s = conn.assigns.source.source |> Atom.to_string
     order = Map.get(conn.assigns.source, :order, [desc: :inserted_at])
     casts = Caster.Cast
             |> where([source: ^s])
             |> order_by(^order)
             |> Caster.Repo.all
 
-    render conn, :index, casts: casts, source: s
+    conn
+    |> assign(:casts, casts)
+    |> render(:index)
   end
 
   def show(conn, %{"id" => id}) do
