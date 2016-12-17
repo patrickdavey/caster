@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="<%= get_csrf_token() %>"/>
 
     <title>Hello Caster!</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/main.css") %>">
   </head>
 
   <body>

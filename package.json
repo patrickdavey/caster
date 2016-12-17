@@ -7,7 +7,7 @@
     "build-assets": "cp -r web/static/assets/* priv/static",
     "watch-assets": "watch-run -p 'web/static/assets/**/*' npm run build-assets",
     "watch-js": "watchify -vd -p browserify-hmr -e web/static/js/app.js -o priv/static/js/app.js",
-    "watch-css": "node-sass --include-path web/static/scss web/static/scss/main.scss   priv/static/css/app.css",
+    "watch-css": "node-sass -r -w --include-path web/static/scss web/static/scss/main.scss priv/static/css/main.css",
     "watch": "npm run watch-assets & npm run watch-js & npm run watch-css",
     "build": "cross-env NODE_ENV=production browserify web/static/js/app.js | uglifyjs -c warnings=false -m > priv/static/js/app.js",
     "test": "karma start karma.conf.js"
