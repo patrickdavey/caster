@@ -30,6 +30,31 @@ defmodule Caster.PageViewTest do
       }
     end
 
+    test "index cast" do
+      test_cast = %Caster.Cast{id: 1, viewed: true, source: "customcast"}
+
+      assigns = %{
+        casts: [test_cast],
+        source: Caster.SourceFinder.find(:customcast)
+      }
+
+      cast_representation = Phoenix.View.render(Caster.CastView, "index.json", assigns)
+
+      assert cast_representation == %{
+        title: "Custom casts",
+        refreshable: false,
+        removeable: true,
+        casts: [%{
+          id: test_cast.id,
+          title: nil,
+          interesting: test_cast.interesting,
+          source: "customcast",
+          note: nil,
+          state: "viewed"
+        }]
+      }
+    end
+
     test "downloaded cast" do
       test_cast = %Caster.Cast{id: 1, file_location: "something"}
 

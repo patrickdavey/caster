@@ -6,7 +6,9 @@ defmodule Caster.RefreshController do
     cond do
       conn.assigns.source.source == :vimcast ->
         casts = Caster.Feed.VimCastFeed.fetch!
-        render(conn, Caster.CastView, :index, casts: casts, source: Atom.to_string(conn.assigns.source.source))
+        conn
+        |> assign(:casts, casts)
+        |> render(Caster.CastView, :index)
 
       :otherwise -> nil
     end

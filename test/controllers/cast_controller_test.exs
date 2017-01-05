@@ -27,4 +27,13 @@ defmodule Caster.PageControllerTest do
     cast = Repo.get!(Cast, cast.id)
     assert cast.viewed
   end
+
+  test "assigns a cast in the index source", %{conn: conn} do
+    cast = Repo.insert!(%Cast{title: "some cast", source: "vimcast", file_location: "some_location" })
+    other = Repo.insert!(%Cast{title: "some cast", source: "something", file_location: "some_location" })
+    conn = get conn, cast_path(conn, :index, source: "vimcast")
+    assert conn.status == 200
+    assert Enum.member?(conn.assigns.casts, cast)
+    refute Enum.member?(conn.assigns.casts, other)
+  end
 end
