@@ -14,7 +14,7 @@ config :caster, Caster.Repo,
   adapter: Ecto.Adapters.Postgres,
   database: "caster_test",
   hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
+  pool: Ecto.Adapters.SQL.Sandbox,
+  ownership_timeout: 30_000
 
   config :hound, driver: "phantomjs"
-  #config :hound, driver: "selenium"

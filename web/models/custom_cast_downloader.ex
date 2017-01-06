@@ -26,6 +26,11 @@ defmodule Caster.CustomCastDownloader do
       {:ok, String.trim_trailing(title)}
     end
 
+    def get_info(%{url: url}) do
+      {info, 0} = System.cmd("youtube-dl", ["-J", "--flat-playlist", url])
+      Poison.Parser.parse! info
+    end
+
     def get_filepath(%Cast{url: url}) do
       {filepath, 0} = System.cmd("youtube-dl", ["--restrict-filenames", "--get-filename", url])
       filepath = Path.expand("#{Application.get_env(:caster, :root_downloads_directory)}/#{@download_subdirectory}/#{String.trim_trailing(filepath)}", Application.app_dir(:caster, "priv"))

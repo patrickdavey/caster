@@ -12,6 +12,11 @@ defmodule Caster.CustomCastDownloaderTest do
     assert title == "falklands south georgia antarctica timelapse"
   end
 
+  test "can fetch playlist information" do
+    info = CustomCastDownloader.ProdClient.get_info(%{url: "https://www.youtube.com/watch?list=PLScaCf_GlyyUPP9fztZDELeCjnVHmNTPd&v=y-AmyMNlYAc"})
+    assert info["_type"] == "playlist"
+  end
+
   test "has the correct filename and directory path" do
     { :ok, filename } = CustomCastDownloader.ProdClient.get_filepath(%Cast{url: "https://www.youtube.com/watch?v=muFHHa370Ks"})
 

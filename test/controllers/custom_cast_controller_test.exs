@@ -16,4 +16,19 @@ defmodule Caster.CustomCastControllerTest do
     assert redirected_to(conn) == cast_path(conn, :index)
     assert Repo.get_by(CustomCast, @valid_attrs)
   end
+
+  describe "playlists" do
+    test "can pull in a playlist" , %{conn: conn} do
+      assert 0 == custom_count
+      post conn, custom_cast_path(conn, :create), custom_cast: %{url: "https://www.youtube.com/watch?list=PLScaCf_GlyyUPP9fztZDELeCjnVHmNTPd&v=y-AmyMNlYAc"}
+      assert 5 == custom_count
+    end
+  end
+
+  defp custom_count do
+    Caster.Cast
+    |> where([source: "customcast"])
+    |> Caster.Repo.all
+    |> Enum.count
+  end
 end
