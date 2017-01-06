@@ -30,7 +30,8 @@ config :caster, Caster.Sources,
   inbuilt: [
     %{
       source: :customcast,
-      title: "Custom casts"
+      title: "Custom casts",
+      order: [desc: :inserted_at]
     },
     %{
       source: :vimcast,
