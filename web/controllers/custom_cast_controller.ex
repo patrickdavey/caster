@@ -26,15 +26,15 @@ defmodule Caster.CustomCastController do
   end
 
   defp insert_custom(%{"title" => title, "url" => url}) do
-    %CustomCast{title: title, url: url}
-    |> CustomCast.changeset
-    |> Repo.insert
+    insert_custom(title, url)
   end
 
   defp insert_custom(title, url) do
-    %CustomCast{title: title, url: url}
-    |> CustomCast.changeset
-    |> Repo.insert
+    unless Repo.exists?(from c in Caster.Cast, where: c.url == ^url) do
+      %CustomCast{title: title, url: url}
+      |> CustomCast.changeset
+      |> Repo.insert
+    end
   end
 
 end

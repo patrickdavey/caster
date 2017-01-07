@@ -22,6 +22,9 @@ defmodule Caster.CustomCastControllerTest do
       assert 0 == custom_count
       post conn, custom_cast_path(conn, :create), custom_cast: %{url: "https://www.youtube.com/watch?list=PLScaCf_GlyyUPP9fztZDELeCjnVHmNTPd&v=y-AmyMNlYAc"}
       assert 5 == custom_count
+
+      post conn, custom_cast_path(conn, :create), custom_cast: %{url: "https://www.youtube.com/watch?list=PLScaCf_GlyyUPP9fztZDELeCjnVHmNTPd&v=y-AmyMNlYAc"}
+      assert 5 == custom_count
     end
   end
 
