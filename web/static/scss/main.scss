@@ -1,4 +1,5 @@
+$icon-font-path: '/fonts/';
 @import "app";
-@import "phoenix";
+@import 'node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 @import "font-awesome.min";
 @import "vue-toast";

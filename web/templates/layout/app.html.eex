@@ -16,20 +16,17 @@
     <div class="container">
       <nav class="navbar navbar-default">
         <div class="container-fluid">
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-              <%= for source <- sources do %>
-              <li><%= link source.title, to: cast_path(@conn, :index, source: source.source) %></li>
-              <% end %>
-              <li><%= link "New", to: custom_cast_path(@conn, :new) %></li>
-            </ul>
-          </div><!-- /.navbar-collapse -->
+          <ul class="nav navbar-nav navbar-right">
+            <%= for source <- sources do %>
+            <li><%= link source.title, to: cast_path(@conn, :index, source: source.source) %></li>
+            <% end %>
+            <li><%= link "New", to: custom_cast_path(@conn, :new) %></li>
+          </ul>
         </div><!-- /.container-fluid -->
       </nav>
       <vue-toast v-ref:toast></vue-toast>
 
-      <div class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></div>
-      <div class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></div>
+      <%= render "flash.html", info: get_flash(@conn, :info), error: get_flash(@conn, :error) %>
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>

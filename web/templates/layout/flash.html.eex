@@ -1,0 +1,8 @@
+<% if @info do %>
+  <div class="alert alert-info" role="alert"><%= @info %></div>
+<% end %>
+
+<% if @error do %>
+  <div class="alert alert-danger" role="alert"><%= @error %></div>
+<% end %>
+
