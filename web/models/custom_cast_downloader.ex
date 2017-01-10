@@ -27,8 +27,10 @@ defmodule Caster.CustomCastDownloader do
     end
 
     def get_info(%{url: url}) do
-      {info, 0} = System.cmd("youtube-dl", ["-J", "--flat-playlist", url])
-      Poison.Parser.parse! info
+      case System.cmd("youtube-dl", ["-J", "--flat-playlist", url]) do
+        {info, 0} -> Poison.Parser.parse! info
+        _ -> :error
+      end
     end
 
     def get_filepath(%Cast{url: url}) do
