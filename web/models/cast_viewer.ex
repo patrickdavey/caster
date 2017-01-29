@@ -46,7 +46,7 @@ defmodule Caster.CastViewer do
     def view!(cast = %Cast{}) do
       changeset = Cast.changeset(cast, %{viewed: true})
       Repo.update!(changeset)
-      {:ok}
+      :ok
     end
   end
 end

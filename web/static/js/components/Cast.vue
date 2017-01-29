@@ -64,7 +64,12 @@ export default Vue.extend({
 
   methods: {
     launchVideo: function() {
-      this.$http.get('/casts/' + this.cast.id);
+      this.$http.get('/casts/' + this.cast.id)
+        .then(response => {
+          this.$dispatch('toast-msg', "Launching VLC")
+        }, error => {
+          this.$dispatch('toast-msg', "Could not view cast")
+        })
     },
 
     openModal: function () {
