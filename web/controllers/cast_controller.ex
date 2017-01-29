@@ -26,9 +26,9 @@ defmodule Caster.CastController do
         :otherwise -> Caster.CastViewer.ProdClient
       end
 
-    viewer.view!(cast)
+    status = viewer.view!(cast)
 
-    send_resp(conn, :ok, "")
+    send_resp(conn, status, "")
   end
 
   def update(conn, %{"id" => id, "cast" => cast_params}) do

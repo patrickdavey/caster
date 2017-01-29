@@ -18,7 +18,7 @@ defmodule Caster.DownloadController do
 
   def delete(conn, %{"cast_id" => cast_id}) do
     cast = Repo.get!(Cast, cast_id)
-    File.rm!(cast.file_location)
+    File.rm(cast.file_location) # even if it somehow doesn't exist any more, just reset it.
     changeset = Cast.changeset(cast, %{file_location: nil})
     Repo.update!(changeset)
     send_resp(conn, :ok, "")

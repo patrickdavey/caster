@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <meta name="csrf-token" content="<%= get_csrf_token() %>"/>
 
-    <title>Hello Caster!</title>
+    <title>Caster: Video Library.</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/main.css") %>">
   </head>
 

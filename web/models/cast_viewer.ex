@@ -19,12 +19,17 @@ defmodule Caster.CastViewer do
     @behaviour Caster.CastViewerBehaviour
 
     def view!(cast = %Cast{file_location: file_location}) do
-      Task.Supervisor.async_nolink(Caster.TaskSupervisor, fn ->
-        System.cmd("vlc", [file_location])
-        changeset = Cast.changeset(cast, %{viewed: true})
-        Repo.update!(changeset)
-        {:ok}
-      end)
+      if File.exists?(file_location) do
+        Task.Supervisor.async_nolink(Caster.TaskSupervisor, fn ->
+          System.cmd("vlc", [file_location])
+          changeset = Cast.changeset(cast, %{viewed: true})
+          Repo.update!(changeset)
+          {:ok}
+        end)
+        :ok
+      else
+        :unprocessable_entity
+      end
     end
   end
 
