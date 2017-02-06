@@ -22,14 +22,14 @@ defmodule Mix.Tasks.Caster.ExportNotes do
     notes = casts
             |> Enum.map_join("\n\n", &format_note/1)
 
-    File.write!(notes_file, to_charlist(notes), [:write, :utf8])
+    File.write!(Path.expand(notes_file), to_charlist(notes), [:write, :utf8])
   end
 
   defp format_note(%{note: note, url: nil, title: title}) do
-    "### #{title}\n#{note}"
+    "### #{title}\n#{note}\n"
   end
 
   defp format_note(%{note: note, url: url, title: title}) do
-    "### [#{title}](#{url})\n#{note}"
+    "### [#{title}](#{url})\n#{note}\n"
   end
 end
