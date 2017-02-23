@@ -8,6 +8,6 @@ defmodule Caster.Mix.Tasks.Caster.ExportNotesTest do
     Mix.Tasks.Caster.ExportNotes.run("", file_path)
     contents = File.read!(file_path)
     File.rm file_path
-    assert contents == "### no url\nno url note\n\n### [test](a)\nmy happy note"
+    assert contents == "### no url\nno url note\n\n\n### [test](a)\nmy happy note\n"
   end
 end

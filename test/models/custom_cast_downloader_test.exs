@@ -20,7 +20,7 @@ defmodule Caster.CustomCastDownloaderTest do
   test "has the correct filename and directory path" do
     { :ok, filename } = CustomCastDownloader.ProdClient.get_filepath(%Cast{url: "https://www.youtube.com/watch?v=muFHHa370Ks"})
 
-    filename_expected = Path.expand('downloads/custom/falklands_south_georgia_antarctica_timelapse-muFHHa370Ks.mp4', Application.app_dir(:caster, "priv"))
+    filename_expected = Path.expand('downloads/custom/muFHHa370Ks_falklands_south_georgia_antarctica_timelapse-muFHHa370Ks.mp4', Application.app_dir(:caster, "priv"))
     assert filename == filename_expected
   end
 end
