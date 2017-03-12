@@ -3,16 +3,13 @@ import Cast from '../../../web/static/js/components/Cast.vue'
 
 describe('Downloaded Cast', () => {
   var vm;
-  var testComponent;
 
   beforeEach(() => {
     vm = new Vue({
       data: { cast: {title: 'testName', id: 1,  state: 'downloaded'} },
-      template: '<div><cast v-ref:test-component :cast="cast"></cast></div>',
+      template: '<div><cast :cast="cast"></cast></div>',
       components: { Cast }
     }).$mount();
-
-    testComponent = vm.$refs.testComponent;
   })
 
   afterEach(() =>
