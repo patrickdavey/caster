@@ -1,4 +1,6 @@
-<cast-list></cast-list>
+<div id="cast-list">
+  <cast-list></cast-list>
+</div>
 
 <script type="text/javascript">
   window.source = "<%= @conn.assigns.source.source %>";

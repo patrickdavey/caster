@@ -36,7 +36,7 @@ describe('Cast.vue', () => {
       Vue.use(require('vue-resource'));
       vm = new Vue({
         data: { cast: {name: 'testName', id: 1,  state: 'fresh'} },
-        template: '<div><cast v-ref:test-component :cast="cast"></cast></div>',
+        template: '<div><cast ref=\'testComponent\' :cast="cast"></cast></div>',
         components: { Cast }
       }).$mount();
 
@@ -52,7 +52,7 @@ describe('Cast.vue', () => {
     });
 
     it('should change the state to downloading if downloadStarted called', () => {
-      testComponent.downloadStarted()
+      testComponent.downloadStarted();
       expect(testComponent.cast.state).toBe('downloading');
     });
   });
