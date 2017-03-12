@@ -6,6 +6,7 @@
   "scripts": {
     "build-assets": "cp -r web/static/assets/* priv/static",
     "watch-assets": "watch-run -p 'web/static/assets/**/*' npm run build-assets",
+    "build-scss": "node-sass --include-path web/static/scss web/static/scss/main.scss priv/static/css/main.css",
     "watch-js": "watchify -vd -p browserify-hmr -e web/static/js/app.js -o priv/static/js/app.js",
     "watch-css": "node-sass -r -w --include-path web/static/scss web/static/scss/main.scss priv/static/css/main.css",
     "watch": "npm run watch-assets & npm run watch-js & npm run watch-css",
@@ -35,6 +36,7 @@
     "browserify": "^13.1.0",
     "browserify-hmr": "^0.3.1",
     "cross-env": "^2.0.0",
+    "node-sass": "^4.0",
     "envify": "^3.4.1",
     "eslint": "^3.3.0",
     "eslint-config-standard": "^5.3.5",
@@ -53,6 +55,7 @@
     "proxyquireify": "^3.0.1",
     "uglify-js": "^2.5.0",
     "vueify": "^9.0.0",
+    "watch-run": "^1.2.2",
     "watchify": "^3.4.0"
   },
   "browserify": {
