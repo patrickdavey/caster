@@ -52,6 +52,8 @@
   import CastRefresh from './Cast-Refresh.vue'
   import {modal} from 'vue-strap/dist/vue-strap.min'
   import Vue from 'vue'
+  import { EventBus } from '../event-bus.js';
+
 
   export default Vue.extend({
     data () {
@@ -108,7 +110,7 @@
           .then(response => {
             this.showModal = false;
           }, error => {
-            this.$dispatch('toast-msg', "Could not update note")
+            EventBus.$emit('toast-msg', "Could not update note");
           })
       },
 
@@ -122,7 +124,7 @@
           this.refreshable = response.data.refreshable;
           this.initialFetchComplete = true;
         }, error => {
-          this.error = 'Could not fetch casts from server!';
+          EventBus.$emit('toast-msg', "Could not fetch casts from server!");
           this.initialFetchComplete = true;
         })
       },

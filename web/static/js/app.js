@@ -6,6 +6,7 @@ import PhoenixVueSocket from './plugins/Phoenix-Vue-Socket'
 // COMPONENTS
 import CastList from './components/Cast-List.vue'
 import VueToast from 'vue-toast'
+import { EventBus } from './event-bus.js';
 
 // PLUGINS
 Vue.use(VueResource)
@@ -20,19 +21,28 @@ Vue.http.headers.common['Accept'] = 'application/json';
 
 //GLOBAL COMPONENT
 new Vue({
-  el: 'body',
+  el: '#cast-list',
   components: {
-    CastList: CastList,
+    CastList: CastList
+  }
+});
+
+new Vue({
+  el: '#toast',
+  components: {
     VueToast: VueToast
   },
-  events: {
-    'toast-msg': function (msg) {
-      this.toast.showToast(msg);
-    }
-  }, ready: function () {
-    //setup toast object and cache it. Unsure if this is best practice.
+  mounted() {
     const toast = this.$refs.toast;
-    this.toast = toast;
-    this.toast.setOptions({ position: 'top right' });
+
+    toast.setOptions({
+      timeLife: 3000,
+      position: 'top right'
+    });
+
+    EventBus.$on('toast-msg', function(msg) {
+      toast.showToast(msg);
+    });
+    //setup toast object and cache it. Unsure if this is best practice.
   }
 })

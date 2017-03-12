@@ -39,6 +39,7 @@
 <script>
 
 import Vue from 'vue'
+import { EventBus } from '../event-bus.js';
 
 export default Vue.extend({
   props: {
@@ -66,9 +67,9 @@ export default Vue.extend({
     launchVideo: function() {
       this.$http.get('/casts/' + this.cast.id)
         .then(response => {
-          this.$dispatch('toast-msg', "Launching VLC")
+          EventBus.$emit('toast-msg', "Launching VLC")
         }, error => {
-          this.$dispatch('toast-msg', "Could not view cast")
+          EventBus.$emit('toast-msg', "Could not view cast")
         })
     },
 
@@ -78,7 +79,7 @@ export default Vue.extend({
     },
     downloadStarted: function () {
       this.cast.state = 'downloading'
-      this.$dispatch('toast-msg', "starting download")
+      EventBus.$emit('toast-msg', "starting download")
     },
     download: function() {
       let chan = this.$socket.channel("casts:cast" + this.cast.id, {});
@@ -91,7 +92,7 @@ export default Vue.extend({
         .then(response => {
           this.downloadStarted();
         }, error => {
-          this.$dispatch('toast-msg', "Could not download cast")
+          EventBus.$emit('toast-msg', "Could not download cast")
         })
     },
     removeDownload: function() {
@@ -99,12 +100,12 @@ export default Vue.extend({
         .then(response => {
           this.downloadRemoved();
         }, error => {
-          this.$dispatch('toast-msg', "Could not remove download")
+          EventBus.$emit('toast-msg', "Could not remove download")
         })
     },
     downloadRemoved: function () {
       this.cast.state = 'fresh'
-      this.$dispatch('toast-msg', "Removed download")
+      EventBus.$emit('toast-msg', "Removed download")
     },
 
     showRemove: function () {
@@ -116,7 +117,7 @@ export default Vue.extend({
         .then(response => {
           this.cast.interesting = !this.cast.interesting;
         }, error => {
-          this.$dispatch('toast-msg', "Could not toggle interesting")
+          EventBus.$emit('toast-msg', "Could not toggle interesting")
         })
     },
   }

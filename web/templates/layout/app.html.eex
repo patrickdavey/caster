@@ -24,7 +24,10 @@
           </ul>
         </div><!-- /.container-fluid -->
       </nav>
-      <vue-toast v-ref:toast></vue-toast>
+
+      <div id="toast">
+        <vue-toast ref='toast'></vue-toast>
+      </div>
 
       <%= render "flash.html", info: get_flash(@conn, :info), error: get_flash(@conn, :error) %>
 
