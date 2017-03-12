@@ -16,7 +16,9 @@
               <th></th>
             </tr>
           </thead>
-          <tr is="cast" :removeable="removeable" :cast="cast" v-for="cast in casts | filterBy 'true' in 'interesting'"></tr>
+          <tbody>
+            <tr is="cast" :removeable="removeable" :cast="cast" v-for="cast in interestingCasts"></tr>
+          </tbody>
         </table>
       </div>
 
@@ -30,13 +32,15 @@
               <th></th>
             </tr>
           </thead>
-          <tr is="cast" :cast="cast" :removeable="removeable" v-for="cast in casts | filterBy 'false' in 'interesting'"></tr>
+          <tbody>
+            <tr is="cast" :cast="cast" :removeable="removeable" v-for="cast in normalCasts"></tr>
+          </tbody>
         </table>
       </div>
     </div>
     <p v-else>Loading...</p>
 
-    <modal :callback="saveNote" :show.sync="showModal">
+    <modal :callback="saveNote" @cancel="showModal = false" :value.sync="showModal">
       <div slot="modal-header" class="modal-header">
         <h4 class="modal-title">Notes for {{ selectedCast.title }}</h4>
       </div>
@@ -62,15 +66,12 @@
         title: "",
         showModal: false,
         selectedCast: { title: "", note: "" },
-        error: null
+        error: null,
+        initialFetchComplete: false,
       }
     },
 
     props: {
-      initialFetchComplete: {
-        type: Boolean,
-        default: false
-      },
       refreshable: {
         type: Boolean,
         default: false
@@ -83,6 +84,18 @@
       },
       hasNormalCasts () {
         return this.casts.filter((c) => c.interesting === false).length > 0
+      },
+      interestingCasts: function () {
+        var self = this;
+        return self.casts.filter(function (cast) {
+          return cast.interesting == true;
+        })
+      },
+      normalCasts: function () {
+        var self = this;
+        return self.casts.filter(function (cast) {
+          return cast.interesting == false;
+        })
       }
     },
 
@@ -92,10 +105,7 @@
       modal
     },
 
-    created () {
-      if (this.initialFetchComplete) {
-        return;
-      }
+    created: function() {
       this.fetchCasts()
     },
 
@@ -112,6 +122,10 @@
           }, error => {
             EventBus.$emit('toast-msg', "Could not update note");
           })
+      },
+
+      cancelPressed: function () {
+        debugger;
       },
 
       fetchCasts () {
