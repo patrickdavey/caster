@@ -11,6 +11,7 @@ defmodule Caster.Features.CastTest do
     Repo.insert!(%VimCast{title: "happy", url: "a"})
     navigate_to("/casts?source=vimcast")
     element_text = find_element(:css, "h1") |> visible_text
+
     assert Regex.match?(~r/Vimcasts/, element_text)
     assert Regex.match?(~r/happy/, visible_page_text())
   end

@@ -17,4 +17,5 @@ config :caster, Caster.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
   ownership_timeout: 30_000
 
-  config :hound, driver: "phantomjs"
+  # config :hound, driver: "phantomjs"
+config :hound, driver: "chrome_driver"

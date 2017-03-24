@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-phantomjs --wd > /dev/null &
+chromedriver > /dev/null &
 pid=$!
 trap "kill $pid" INT TERM EXIT
 mix test --include feature --include production_api_test
