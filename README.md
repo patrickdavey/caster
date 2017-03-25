@@ -1,20 +1,45 @@
 # Caster
 
-To start your Phoenix app:
+Caster is a very simple little app for managing some screencast series. At the moment there's support for [Vimcasts](http://vimcasts.org) and custom youtube/vimeo files (using [youtube-dl](https://rg3.github.io/youtube-dl/)). You can also supply a list of folders which contain videos, and these can be imported into Caster. It's all very beta, but it works for me.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `npm install`
-  * Start Phoenix endpoint with `mix phoenix.server`
+## Installation
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+### Prerequisites
+1. You need to have [Elixir](http://elixir-lang.org/) installed.
+2. You need to have [youtube-dl](https://rg3.github.io/youtube-dl/) installed
+3. You need to have a node environment setup.
+3. You need to have a database (I use postgres)
+4. Probably some other things ;) (send a PR to update the docs)
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+### Setup
+1. Clone this repo somewhere.
+2. `$ mix deps.get`
+3. `$ npm install`
+4. Before moving on, configure your database in `config/dev.exs` and run:
+    `$ mix ecto.create`
+    `$ mix ecto.migrate`
+5. Run `mix phoenix.server`
 
-## Learn more
+### Configration
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+You can configure a _few_ things at the moment, PR's definitely welcome for any RSS feeds out there. In your config/dev.secret.exs there are a few settings you can do.  Here's a sample
+
+```elixir
+config :caster,
+  notes_export_file: "~/somedir/notes_file.md",
+  video_export_directory: "~/Desktop/interesting_videos"
+
+config :caster, Caster.Sources,
+  local_folders: [
+    %{source: :some_other_casts,
+      directory: "/path-to-caster/caster/priv/downloads/foobar",
+      removeable: false,
+      order: [desc: :title],
+      title: "FooBar",
+      wildcard_match: "**/*.mov"}
+  ]
+```
+
+1. notes_export_file is a file which any notes you make will be concatenated into.
+2. video_export_directory is a directory where videos (marked interesting) can be copied to. Why would you bother? Well, it was handy for me to mark a few videos as interesting and then copy them off onto a phone / tablet / whatever to have handy.
+3. `local_folders` just contain an array of structs that you can use to point to folders which contain videos you have already downloaded from somewhere.
