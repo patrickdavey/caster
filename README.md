@@ -43,3 +43,6 @@ config :caster, Caster.Sources,
 1. notes_export_file is a file which any notes you make will be concatenated into.
 2. video_export_directory is a directory where videos (marked interesting) can be copied to. Why would you bother? Well, it was handy for me to mark a few videos as interesting and then copy them off onto a phone / tablet / whatever to have handy.
 3. `local_folders` just contain an array of structs that you can use to point to folders which contain videos you have already downloaded from somewhere.
+
+### Sample
+![caster sample](https://media.giphy.com/media/xUA7bgP2YXOBomUGD6/giphy.gif)
