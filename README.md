@@ -1,6 +1,11 @@
 # Caster [![Code Climate](https://codeclimate.com/github/patrickdavey/caster.png)](https://codeclimate.com/github/patrickdavey/caster) [![Travis](https://api.travis-ci.org/patrickdavey/caster.svg?branch=master)](https://api.travis-ci.org/patrickdavey/caster.svg?branch=master)
 
-Caster is a very simple little app for managing some screencast series. At the moment there's support for [Vimcasts](http://vimcasts.org) and custom youtube/vimeo files (using [youtube-dl](https://rg3.github.io/youtube-dl/)). You can also supply a list of folders which contain videos, and these can be imported into Caster. It's all very beta, but it works for me. Mostly it has been an excuse to play with/butcher Elixir & Phoenix & VueJS.
+## What is Caster?
+
+I find watching technical videos a good way to learn. I wanted a way to have one place where I could manage all these videos, and a place to keep notes on what I've watched. I also wanted an excuse to play a bit with Elixir & Phoenix & Vuejs ;)
+
+Caster has built-in support for [Vimcasts](http://vimcasts.org) and custom youtube/vimeo files (using [youtube-dl](https://rg3.github.io/youtube-dl/)).  Videos are downloaded locally, and then viewed using vlc. There's a simply modal for taking notes on what you're learning.
+
 
 ## Installation
 
@@ -44,6 +49,11 @@ config :caster, Caster.Sources,
 1. notes_export_file is a file which any notes you make will be concatenated into.
 2. video_export_directory is a directory where videos (marked interesting) can be copied to. Why would you bother? Well, it was handy for me to mark a few videos as interesting and then copy them off onto a phone / tablet / whatever to have handy.
 3. `local_folders` just contain an array of structs that you can use to point to folders which contain videos you have already downloaded from somewhere.
+
+### TODO / Pull Requests
+1. Adding different feeds (e.g. Ruby Tapas)
+2. Ability to archive casts.
+3. Other cool stuff ;)
 
 ### Sample
 ![caster sample](https://media.giphy.com/media/xUA7bgP2YXOBomUGD6/giphy.gif)
