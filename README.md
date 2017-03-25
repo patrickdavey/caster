@@ -4,7 +4,7 @@
 
 I find watching technical videos a good way to learn. I wanted a way to have one place where I could manage all these videos, and a place to keep notes on what I've watched. I also wanted an excuse to play a bit with Elixir & Phoenix & Vuejs ;)
 
-Caster has built-in support for [Vimcasts](http://vimcasts.org) and custom youtube/vimeo files (using [youtube-dl](https://rg3.github.io/youtube-dl/)).  Videos are downloaded locally, and then viewed using vlc. There's a simply modal for taking notes on what you're learning.
+Caster has built-in support for [Vimcasts](http://vimcasts.org) and custom youtube/vimeo files (using [youtube-dl](https://rg3.github.io/youtube-dl/)).  Videos are downloaded locally, and then viewed using vlc. There's a simple modal for taking notes on what you're learning.
 
 
 ## Installation
