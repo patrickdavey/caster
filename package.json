@@ -20,7 +20,7 @@
     "url-loader": "^0.5.7",
     "vue": "^2.0",
     "vue-resource": "~> 1.1",
-    "vue-strap": "github:wffranco/vue-strap",
+    "vue-strap": "wffranco/vue-strap",
     "vue-toast": "^3.0"
   },
   "browser": {
