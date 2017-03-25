@@ -1,4 +1,4 @@
-# Caster [![Code Climate](https://codeclimate.com/github/patrickdavey/caster.png)](https://codeclimate.com/github/patrickdavey/caster)
+# Caster [![Code Climate](https://codeclimate.com/github/patrickdavey/caster.png)](https://codeclimate.com/github/patrickdavey/caster) [![Travis](https://api.travis-ci.org/patrickdavey/caster.svg?branch=master)](https://api.travis-ci.org/patrickdavey/caster.svg?branch=master)
 
 Caster is a very simple little app for managing some screencast series. At the moment there's support for [Vimcasts](http://vimcasts.org) and custom youtube/vimeo files (using [youtube-dl](https://rg3.github.io/youtube-dl/)). You can also supply a list of folders which contain videos, and these can be imported into Caster. It's all very beta, but it works for me. Mostly it has been an excuse to play with/butcher Elixir & Phoenix & VueJS.
 
