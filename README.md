@@ -1,6 +1,6 @@
 # Caster
 
-Caster is a very simple little app for managing some screencast series. At the moment there's support for [Vimcasts](http://vimcasts.org) and custom youtube/vimeo files (using [youtube-dl](https://rg3.github.io/youtube-dl/)). You can also supply a list of folders which contain videos, and these can be imported into Caster. It's all very beta, but it works for me.
+Caster is a very simple little app for managing some screencast series. At the moment there's support for [Vimcasts](http://vimcasts.org) and custom youtube/vimeo files (using [youtube-dl](https://rg3.github.io/youtube-dl/)). You can also supply a list of folders which contain videos, and these can be imported into Caster. It's all very beta, but it works for me. Mostly it has been an excuse to play with/butcher Elixir & Phoenix & VueJS.
 
 ## Installation
 
@@ -9,6 +9,7 @@ Caster is a very simple little app for managing some screencast series. At the m
 2. You need to have [youtube-dl](https://rg3.github.io/youtube-dl/) installed
 3. You need to have a node environment setup.
 3. You need to have a database (I use postgres)
+3. You need to have [vlc](http://www.videolan.org/index.html) available on your path.
 4. Probably some other things ;) (send a PR to update the docs)
 
 ### Setup
