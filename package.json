@@ -10,7 +10,7 @@
     "watch-js": "watchify -vd -p browserify-hmr -e web/static/js/app.js -o priv/static/js/app.js",
     "watch-css": "node-sass -r -w --include-path web/static/scss web/static/scss/main.scss priv/static/css/main.css",
     "watch": "npm run watch-assets & npm run watch-js & npm run watch-css",
-    "build": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o priv/static/css/build.css ] -e web/static/js/app.js | uglifyjs -c warnings=false -m > priv/static/js/app.js",
+    "build": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o priv/static/css/main.css ] -e web/static/js/app.js | uglifyjs -c warnings=false -m > priv/static/js/app.js",
     "test": "karma start karma.conf.js"
   },
   "dependencies": {
