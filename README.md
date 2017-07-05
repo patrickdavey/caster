@@ -24,7 +24,14 @@ Caster has built-in support for [Vimcasts](http://vimcasts.org) and custom youtu
 4. Before moving on, configure your database in `config/dev.exs` and run:
     `$ mix ecto.create`
     `$ mix ecto.migrate`
-5. Run `mix phoenix.server`
+5. `$ npm run build-js`
+6. `$ npm run build-scss`
+7. `$ npm run build-assets`
+8. cp `config/dev.secret.exs.sample` to `config/dev.secret.exs` or remove it, and comment out the include line in `config/dev.exs`
+9. Run `mix phoenix.server`
+
+### Notes
+Please note, steps 5-7 _should_ only be necessary the first time you start up the app. I haven't worked out how to force the app to create the various directories on the fly.
 
 ### Configration
 
