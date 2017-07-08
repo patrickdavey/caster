@@ -51,6 +51,16 @@ config :caster, Caster.Sources,
       title: "FooBar",
       wildcard_match: "**/*.mov"}
   ]
+  
+
+#### Note for sync'ing local content.
+
+If you do have local content, once you have added it to the `local_folders` config above, you need to pull the content into the database. Currently there isn't a mix task (laziness), but you can run the task with:
+
+1. iex -S mix phoenix.server
+2. Caster.LocalFolderCast.import!
+
+It will then go look through all the folders and pull in the video's based on the wildcard match.
 ```
 
 1. notes_export_file is a file which any notes you make will be concatenated into.
