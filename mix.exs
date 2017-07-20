@@ -27,10 +27,10 @@ defmodule Caster.Mixfile do
   end
 
   def app_list(:test) do
-    [ :hound | app_list ]
+    [ :hound | app_list() ]
   end
 
-  def app_list(_), do: app_list
+  def app_list(_), do: app_list()
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
